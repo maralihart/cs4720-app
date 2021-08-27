@@ -1,7 +1,8 @@
 # CS4720 Mobile App Project
 
 ## Table of Contents
-[Quick Links](#QuickLinks)
+* [Quick Links](#quick-links)
+* [Description](#description)
 
 ## Quick Links
 [Google Drive](https://drive.google.com/drive/u/1/folders/1Ok7T9WZ2qgt78XozabyoPSG0iJGZOuES) 
