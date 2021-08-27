@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "cs4720-app-starter",
+    "slug": "cs4720-app-starter",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "cs4720-app-starter"
+}
