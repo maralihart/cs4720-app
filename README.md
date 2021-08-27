@@ -16,8 +16,8 @@ This repository is for CS4720 at the University of Virginia. It holds a Expo pro
 [Source](https://reactnative.dev/docs/0.60/enviroment-setup)
 
 1. Download [Node.js](https://nodejs.org/en/download/)
-2. Verify Node is downloaded by running `npm --version` in your terminal
-3. Download Expo CLI by running `npm install -g expo-cli`
-4. In the folder you want the repository, run `git clone https://github.com/maralihart/cs4720-app` or open in GitHub Desktop
-5. `cd cs4720-app`
-6. To run the app, `npm start`
+2. Download Yarn CLI in your terminal by running `npm install --global yarn`
+4. Download Expo CLI by running `yarn global add expo-cli`
+5. In the folder you want the repository, run `git clone https://github.com/maralihart/cs4720-app` or open in GitHub Desktop
+6. `cd cs4720-app`
+7. To run the app, `expo start`
