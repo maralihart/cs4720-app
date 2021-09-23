@@ -11,7 +11,11 @@ export default function App() {
     <View style={styles.container}>
       {/* <Text>Open up App.js to start working on your app!</Text> */}
       {/* <SearchBar/> */}
+<<<<<<< HEAD
       <SplashScreen/>
+=======
+      <SearchBar/>
+>>>>>>> set up basic functionality
       <StatusBar style="auto" />
     </View>
   );
