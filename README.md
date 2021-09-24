@@ -4,6 +4,7 @@
 * [Quick Links](#quick-links)
 * [Description](#description)
 * [Set Up](#set-up)
+* [Making Changes](#making-changes)
 
 ## Quick Links
 * [Google Drive](https://drive.google.com/drive/u/1/folders/1Ok7T9WZ2qgt78XozabyoPSG0iJGZOuES) 
@@ -22,3 +23,13 @@ This repository is for CS4720 at the University of Virginia. It holds a Expo pro
 6. `cd cs4720-app`
 7. `yarn install` will make sure you have the files needed
 8. To run the app, `expo start`. If you're interested in opening this app in emulators, you can press `i` for iOS or `a` for Android. iOS emulator is a part of XCode and Android emulator instructions are found [here](https://developer.android.com/studio/run/emulator). You can also download the Expo app on your smartphone and run the app there!
+
+## Making Changes
+1. `git checkout dev`
+2. `git pull dev`
+3. `git checkout -b computing-id/feature-name`
+4. Make sure that your branch does not contain changes from other branches *unless explicitly needed in that branch*
+5. Run your code on the simulator and make sure that no errors arise
+6. Make a pull request by going to the [Pull Requests tab](https://github.com/maralihart/cs4720-app/pulls) and pressing the green button at the top right
+7. Select the appropriate template
+8. Follow the template instructions
