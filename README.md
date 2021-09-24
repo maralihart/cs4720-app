@@ -35,11 +35,13 @@ This repository is for CS4720 at the University of Virginia. It holds a Expo pro
 8. Follow the template instructions
 
 ## MVP Plan (due Oct. 15)
-[ ] - Navigation
-[ ] - Profile
-[ ] - Make a new post
-[ ] - View a post
-[ ] - Search posts
+[ ] Navigation
+[ ] Profile
+[ ] Make a new post
+[ ] View a post
+[ ] Search posts
+[ ] Set up database
 
 ## Ideal
-[ ] - Calendar
+[ ] Calendar
+[ ] Create user database
