@@ -33,3 +33,13 @@ This repository is for CS4720 at the University of Virginia. It holds a Expo pro
 6. Make a pull request by going to the [Pull Requests tab](https://github.com/maralihart/cs4720-app/pulls) and pressing the green button at the top right
 7. Select the appropriate template
 8. Follow the template instructions
+
+## MVP Plan (due Oct. 15)
+[ ] - Navigation
+[ ] - Profile
+[ ] - Make a new post
+[ ] - View a post
+[ ] - Search posts
+
+## Ideal
+[ ] - Calendar
