@@ -2,10 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function SearchBar() {
+export default function Reporting() {
   return (
       <View style={styles.container}>
-        <Text>SearchBar</Text>
+        <Text>Reporting</Text>
         <StatusBar style="auto" />
       </View>
   );
