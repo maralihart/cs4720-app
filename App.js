@@ -1,6 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,12 +9,12 @@ import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
 
 export default function App() {
-
+  const [authenticated, setAuthenticated] = useState(false);
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Navbar">
+      <Stack.Navigator initialRouteName={ authenticated ? "Navbar" : "Login" }>
         <Stack.Screen name="Navbar" component={Navbar} />
         <Stack.Screen name="Feed" component={Feed} />
         <Stack.Screen name="Calendar" component={Calendar} />
@@ -26,12 +24,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
