@@ -22,6 +22,10 @@ export default function Navbar({ navigation }) {
           title="Feed"
           onPress={() => navigation.navigate('Feed')}
         />
+        <Button
+          title="Delete later -- login"
+          onPress={() => navigation.navigate('Login')}
+        />
         <StatusBar style="auto" />
       </View>
   );
