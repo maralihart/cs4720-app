@@ -6,6 +6,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import { X } from 'react-native-feather';
 import { TextInput } from 'react-native-gesture-handler';
 import { Row, Text } from '../Essentials/Essentials';
+import {Image} from 'react-native';
 
 export default function SearchBar() {
     const [topic, onSearchTopic] = useState('Search')
@@ -20,7 +21,28 @@ export default function SearchBar() {
         // implement filter button
     }
 
+    const styles = StyleSheet.create({
+        container: {
+          paddingTop: 10,
+        },
+        tinyLogo: {
+          width: 300,
+          height: 300,
+        },
+        logo: {
+          width: 50,
+          height: 50,
+        },
+      });
+    
     return (
+        <View style={styles.container}>
+        <Image
+          style={styles.logo}
+        //   source={require('./bazaar.png')}
+          source={require('./bazaar.jpg')}
+
+        />
         <View style={styles.container}>
             <Row>
                 <X fill="#000" width={32} height={32} />
@@ -30,7 +52,7 @@ export default function SearchBar() {
                 title= "Filter" 
             />
             </Row>
-
+    
         <TextInput 
             style = {styles.input}
             onChangeText = {onSearchTopic}
@@ -43,8 +65,9 @@ export default function SearchBar() {
             />
         <StatusBar style="auto" />
         </View>
+        </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
