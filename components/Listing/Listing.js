@@ -7,47 +7,45 @@
 //  Created by [Author].
 //  Copyright © 2018 [Company]. All rights reserved.
 //
-
+import * as firebase from 'firebase';
 import React from "react"
 import {SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native"
 
+export default function BarterListing() {
+      const [data, setData] = React.useState()
+      function setupListListener(){
+        firebase.database().ref('listings').on('value', (snapshot)=> {
+          setData(snapshot.val());
+          console.log(data + "listener");
+        })
+      }
+      React.useEffect(()=>{
+        setupListListener()
+      }, [])
+      function renderBarterItem({item}){
+        console.log(item + "renderBarterItem");
+        return(
+        <View style = {styles.view}><Text style={styles.item}>{item.Title}</Text>
+                                          <Text style={styles.description}>{item.Content}</Text></View>)
+      }
 
-export default class Listing extends React.Component {
+      return (
+      <SafeAreaView>
+          <Text style={styles.Logo}>B</Text>
+          {Array.isArray(data) &&
+          <FlatList
+            data={data}
+            renderItem={renderBarterItem}
+            keyExtractor = {item => {
+                item.key.toString();
+            }
+          }
+            style={styles.container}
+          />}
+      </SafeAreaView>
+      );
+    }
 
-	static navigationOptions = ({ navigation }) => {
-	
-		const { params = {} } = navigation.state
-		return {
-				header: null,
-				headerLeft: null,
-				headerRight: null,
-			}
-	}
-
-	constructor(props) {
-		super(props)
-	}
-
-	componentDidMount() {
-	
-	}
-      
-    render(data){
-        var data = this.props.data;
-        return (
-        <SafeAreaView>
-            <Text style={styles.Logo}>B</Text>
-            <FlatList
-              data={data}
-              renderItem={({item}) => <View><Text style={styles.item}>{item.Title}</Text>
-                                            <Text style={styles.description}>{item.Content}</Text></View>}
-              keyExtractor = {item => item.key.toString()}
-              style={styles.container}
-            />
-        </SafeAreaView>
-        );
-	}
-}
 
 const styles = StyleSheet.create({
         Logo: {
@@ -73,44 +71,10 @@ const styles = StyleSheet.create({
         description: {
             padding: 0,
             fontSize: 14,
-            height: 40,
+            height: 36,
             marginLeft: 10,
+        },
+        view: {
+          marginBottom: 10
         }
-	/**blogPostView: {
-		backgroundColor: "white",
-		flex: 1,
-	},
-	blogPostBackgroundMaskImage: {
-		backgroundColor: "transparent",
-		resizeMode: "cover",
-		width: null,
-		height: 813,
-	},
-	Title: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 24,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		marginRight: 176,
-	},
-	authorText: {
-		backgroundColor: "transparent",
-		color: "black",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		marginRight: 294,
-		marginTop: 9,
-	},
-	content: {
-		color: "rgb(102, 102, 102)",
-		fontSize: 16,
-		fontStyle: "normal",
-		fontWeight: "normal",
-		textAlign: "left",
-		backgroundColor: "transparent",
-	},*/
 })

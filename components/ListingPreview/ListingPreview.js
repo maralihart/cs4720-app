@@ -6,64 +6,38 @@
 //  Created by [Author].
 //  Copyright © 2018 [Company]. All rights reserved.
 //
-
+import * as firebase from 'firebase';
 import React from "react"
 import { ScrollView, Image, StyleSheet, Text, View } from "react-native"
 
 
-export default class BarterListing extends React.Component {
-
-	static navigationOptions = ({ navigation }) => {
-	
-		const { params = {} } = navigation.state
-		return {
-				header: null,
-				headerLeft: null,
-				headerRight: null,
-			}
-	}
-
-	constructor(props) {
-		super(props)
-	}
-
-	componentDidMount() {
-	
-	}
-
-	render(Title, Content, Header) {
-        var Title = this.props.Title;
-        var Content = this.props.Content;
-        var Header = this.props.Header;
+export default function BarterListing(props){
+		React.useEffect(()=>{
+			setupListingListener(props.ID)
+		}, [])
+		const [listingTitle, setTitle] = React.useState()
+		const [listingContent, setContent] = React.useState()
+		const [listingHeader, setHeader] = React.useState() 
+	   
+		function setupListingListener(listingID){
+			firebase.database().ref('listings/'+listingID).on('value', (snapshot)=>{
+			setTitle(snapshot.val().Title)
+			setContent(snapshot.val().Content)
+			setHeader(snapshot.val().Header)
+			})
+		}
 		return <ScrollView>
-				<Image
-					source={require("./../../assets/images/barter-listing-background-mask.png")}
-					style={styles.Image}/>
 					<Text
-						style={styles.ListingTitle}>{Title}</Text>
+						style={styles.ListingTitle}>{listingTitle}</Text>
 					<Text
-						style={styles.Header}>{Header}</Text>
+						style={styles.Header}>{listingHeader}</Text>
 						<Text style={styles.Content}>
-                            {Content}
+                            {listingContent}
                    		</Text>
 				</ScrollView>
-	}
 }
 
 const styles = StyleSheet.create({
-	background: {
-		backgroundColor: "white",
-		flex: 1,
-	},
-	Image: {
-		resizeMode: "cover",
-		backgroundColor: "transparent",
-		position: "absolute",
-		left: 0,
-		right: 0,
-		top: 65,
-		height: 442,
-	},
 	ListingTitle: {
 		left: 15,
 		color: "black",
