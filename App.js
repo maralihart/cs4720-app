@@ -12,7 +12,7 @@ export default function App() {
       {/* <Text>Open up App.js to start working on your app!</Text> */}
       {/* <SearchBar/> */}
       <SearchBar/>
-      <StatusBar/>
+      <StatusBar style="auto" />
     </View>
 
 //Uncomment this section to test Listing
