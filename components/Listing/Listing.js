@@ -36,7 +36,7 @@ export default class Listing extends React.Component {
         var data = this.props.data;
         return (
         <SafeAreaView>
-            <Text style={styles.Logo}>B</Text>
+            {/* <Text style={styles.Logo}>B</Text> */}
             <FlatList
               data={data}
               renderItem={({item}) => <View><Text style={styles.item}>{item.Title}</Text>
@@ -62,11 +62,12 @@ const styles = StyleSheet.create({
             marginRight: 118,
         },
         container: {
-         marginTop: 100,
-         marginBottom: 200,
+         marginTop: 20,
+        //  marginTop: 100,
+        //  marginBottom: 200,
         },
         item: {
-          marginLeft: 10,
+        //   marginLeft: 10,
           fontSize: 18,
           height: 24,
         },
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
             padding: 0,
             fontSize: 14,
             height: 40,
-            marginLeft: 10,
+            // marginLeft: 10,
         }
 	/**blogPostView: {
 		backgroundColor: "white",

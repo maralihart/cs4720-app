@@ -12,7 +12,7 @@ export default function App() {
       {/* <Text>Open up App.js to start working on your app!</Text> */}
       {/* <SearchBar/> */}
       <SearchBar/>
-      <StatusBar style="auto" />
+      <StatusBar/>
     </View>
 
 //Uncomment this section to test Listing
@@ -45,3 +45,12 @@ export default function App() {
     </View>*/
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

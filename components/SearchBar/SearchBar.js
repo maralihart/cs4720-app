@@ -3,10 +3,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
-import { X } from 'react-native-feather';
+import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput } from 'react-native-gesture-handler';
 import { Row, Text } from '../Essentials/Essentials';
-import { Listing } from '../Listing/Listing';
+import Listing from '../Listing/Listing';
 import {Image} from 'react-native';
 
 
@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
         borderColor: "lightgray",
         padding: 10,
         width: 300,
-        flex: 4
+        flex: 4,
+        backgroundColor: "rgb(242, 242, 247)"
     },
     text: {
         color: '#db6b5c',
@@ -45,8 +46,8 @@ const styles = StyleSheet.create({
         flex: 0.05,
         flexDirection: "row",
         alignItems: "center",
-        // justifyContent: "space-evenly",
-        width: "100%"
+        justifyContent: "space-between",
+        width: "92%"
     },
     bannerContainer: {
         flexDirection: "row",
@@ -61,7 +62,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        width: 300
+        width: 320,
+    },
+    listingContainer: {
+        position: 'absolute',
+        right: 0,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
     },
     
     });
@@ -82,9 +89,9 @@ export default function SearchBar() {
     return (
         <View style={styles.container}>
             <View style={styles.bannerContainer}>
-                <Text>{'<'}</Text>    
+                <ChevronLeft/>
                 <Image style={styles.smallLogo} source={require('./bazaar.jpg')}/>
-                <Text></Text>
+                <ChevronLeft style={{opacity: 0}}/>
             </View>
             <View style={styles.searchContainer}>
                 <View style={styles.searchBarContainer}>
@@ -94,11 +101,12 @@ export default function SearchBar() {
                         placeholder = "Search"
                         />
                 </View>
-                <Button 
+                {/* <Button 
                     onPress={() => filter()} 
                     style = {styles.text}
                     title= "Filter" 
-                />
+                /> */}
+                <Filter height={18}></Filter>
             </View>              
             <View style={styles.item}>
                 {/* <Row>
@@ -121,6 +129,16 @@ export default function SearchBar() {
                 title= "Go" 
                 />
             <StatusBar style="auto" /> */}
+            <View style={styles.listingContainer}>
+                <Listing
+                    data = {[
+                        {key: 1, Title: 'Free item 1', Content: 'This is a free item'},
+                        {key: 2, Title: 'Free item 2', Content: 'This is a free item'},
+                        {key: 3, Title: 'Free item 3', Content: 'This is a free item'},
+                        {key: 4, Title: 'Free item 4', Content: 'This is a free item'},
+                    ]}
+                />
+            </View>
             </View>
         </View>
   );
