@@ -3,6 +3,10 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import SearchBar from './components/SearchBar/SearchBar';
 import SplashScreen from './components/SplashScreen/SplashScreen';
+import Feed from './components/Feed/Feed'
+import Profile from './components/Profile/Profile'
+import Login from './components/Login/Login'
+import Signup from './components/Signup/Signup'
 // import Login from './components/Login/Login';
 
 
@@ -11,7 +15,9 @@ export default function App() {
     <View style={styles.container}>
       {/* <Text>Open up App.js to start working on your app!</Text> */}
       {/* <SearchBar/> */}
-      <SearchBar/>
+      {/* <SearchBar/> */}
+      {/* <SearchBar/> */}
+      <Signup/>
       <StatusBar style="auto" />
     </View>
 
