@@ -25,15 +25,15 @@ if (!firebase.apps.length) {
 export default function App() {
   return(
     //Uncomment this seciton to test ListingPreview
-    /*<View>
+    <View>
       <ListingPreview
-        ID={0}
+        ID={1}
       />
-    </View>*/
+    </View>
 
 //Uncomment this section to test Listing
-    <View>
+    /*<View>
       <Listing/>
-    </View>
+    </View>*/
   );
 };
