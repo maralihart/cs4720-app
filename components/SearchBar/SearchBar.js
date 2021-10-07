@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import { X, Filter, ChevronLeft} from 'react-native-feather';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { Row, Text } from '../Essentials/Essentials';
 import Listing from '../Listing/Listing';
 import {Image} from 'react-native';
@@ -89,7 +89,9 @@ export default function SearchBar() {
     return (
         <View style={styles.container}>
             <View style={styles.bannerContainer}>
-                <ChevronLeft/>
+                <TouchableHighlight>
+                    <ChevronLeft style={{color: 'green'}}/>
+                </TouchableHighlight>
                 <Image style={styles.smallLogo} source={require('./bazaar.jpg')}/>
                 <ChevronLeft style={{opacity: 0}}/>
             </View>
@@ -106,7 +108,9 @@ export default function SearchBar() {
                     style = {styles.text}
                     title= "Filter" 
                 /> */}
-                <Filter height={18}></Filter>
+                <TouchableHighlight onPress={() => filter()}>
+                    <Filter height={18} style={{color: 'green'}}></Filter>
+                </TouchableHighlight>
             </View>              
             <View style={styles.item}>
                 {/* <Row>

@@ -1,4 +1,4 @@
-// TODO: Currently same as the default search page
+// TODO: Aditi -- search bar + search results (listing preview)
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     
     });
 
-export default function Login() {  
+export default function Signup() {  
     const [topic, onSearchTopic] = useState('Search')
     const [name, onChangeName] = useState(' ')
     const [resuts, onFindResults] = useState(' ')
