@@ -1,23 +1,14 @@
-// TODO: Alan
-//
-//  BarterListing
-//  Bazaar 13-Sep-2021-233539
-//
-//  Created by [Author].
-//  Copyright © 2018 [Company]. All rights reserved.
-//
 import * as firebase from 'firebase';
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { ScrollView, Image, StyleSheet, Text, View } from "react-native"
 
-
 export default function BarterListing(props){
-		React.useEffect(()=>{
+		useEffect(()=>{
 			setupListingListener(props.ID)
 		}, [])
-		const [listingTitle, setTitle] = React.useState()
-		const [listingContent, setContent] = React.useState()
-		const [listingHeader, setHeader] = React.useState() 
+		const [listingTitle, setTitle] = useState(null)
+		const [listingContent, setContent] = useState(null)
+		const [listingHeader, setHeader] = useState(null) 
 	   
 		function setupListingListener(listingID){
 			firebase.database().ref('listings/'+listingID).on('value', (snapshot)=>{

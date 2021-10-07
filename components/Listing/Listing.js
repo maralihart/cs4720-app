@@ -1,32 +1,25 @@
-// TODO: Alan
-
-//
-//  Listing
-//  Bazaar 13-Sep-2021-233539
-//
-//  Created by [Author].
-//  Copyright © 2018 [Company]. All rights reserved.
-//
 import * as firebase from 'firebase';
-import React from "react"
+import React, { useEffect, useState } from "react"
 import {SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native"
 
 export default function BarterListing() {
-      const [data, setData] = React.useState()
+      const [data, setData] = useState(null)
       function setupListListener(){
         firebase.database().ref('listings').on('value', (snapshot)=> {
           setData(snapshot.val());
           console.log(data + "listener");
         })
       }
-      React.useEffect(()=>{
+      useEffect(()=>{
         setupListListener()
       }, [])
       function renderBarterItem({item}){
         console.log(item + "renderBarterItem");
         return(
-        <View style = {styles.view}><Text style={styles.item}>{item.Title}</Text>
-                                          <Text style={styles.description}>{item.Content}</Text></View>)
+        <View style = {styles.view}>
+          <Text style={styles.item}>{item.Title}</Text>
+          <Text style={styles.description}>{item.Content}</Text>
+        </View>)
       }
 
       return (
