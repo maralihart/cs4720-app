@@ -4,6 +4,7 @@ import { SafeAreaView, Button, StyleSheet, View } from 'react-native';
 import { X } from 'react-native-feather';
 import { TextInput } from 'react-native-gesture-handler';
 import { Row, Text } from '../Essentials/Essentials';
+import * as firebase from 'firebase';
 
 export default function Login() {
   const [loginMode, SetLoginMode] = useState(true)
@@ -17,9 +18,24 @@ export default function Login() {
     // TODO: Set up API to handle authentication
     setErrorMessage(null)
     if (loginMode) {
+        firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+        var user = userCredential.user;
+    })
+    .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+    });
       console.log("Logging in as", email, password)
     } else {
-      console.log("Signing up with", name, email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            var user = userCredential.user;
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        });
+        console.log("Signing up with", name, email, password)
     }
   }
 
