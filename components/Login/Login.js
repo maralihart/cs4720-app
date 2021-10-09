@@ -5,8 +5,11 @@ import { X } from 'react-native-feather';
 import { TextInput } from 'react-native-gesture-handler';
 import { Row, Text } from '../Essentials/Essentials';
 import * as firebase from 'firebase';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-export default function Login() {
+export default function Login({ navigation }) {
   const [loginMode, SetLoginMode] = useState(true)
   const [name, onChangeName] = useState('')
   const [email, onChangeEmail] = useState('')
@@ -17,25 +20,38 @@ export default function Login() {
     // TODO: Error handling with invalid name, email, and password
     // TODO: Set up API to handle authentication
     setErrorMessage(null)
-    if (loginMode) {
-        firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+    if (!loginMode) {
+      firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
         var user = userCredential.user;
-    })
-    .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-    });
-      console.log("Logging in as", email, password)
-    } else {
+        console.log(JSON.stringify(user))
         firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
+          .then((userCredential) => {
             var user = userCredential.user;
+            navigation.navigate('Navbar');
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+            console.log(errorMessage);
+          });
+        console.log("Logging in as", email, password)
+      })
+        .catch((error) => {
+          setErrorMessage(error.message);
+          console.log(errorMessage);
+        });
+      console.log("Signing up with", name, email, password)
+
+    } else {
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          var user = userCredential.user;
+          navigation.navigate('Navbar');
         })
         .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+          setErrorMessage(error.message);
+          console.log(errorMessage);
         });
-        console.log("Signing up with", name, email, password)
+      console.log("Logging in as", email, password)
     }
   }
 
@@ -45,49 +61,48 @@ export default function Login() {
     if (!email) setErrorMessage("Invalid email.")
     console.log("Forgot password", email)
   }
-
   return (
     <View style={styles.container}>
       <Row>
         <X fill="#000" width={32} height={32} />
-        { loginMode 
+        {loginMode
           ? <Text size={24}>Login</Text>
           : <Text size={24}>Sign Up</Text>
         }
-        <Button 
-          onPress={() => SetLoginMode(!loginMode)} 
+        <Button
+          onPress={() => SetLoginMode(!loginMode)}
           title={loginMode ? "Sign Up" : "Login"} />
       </Row>
       <Text color="red">{errorMessage}</Text>
       <SafeAreaView>
-        { !loginMode && <TextInput 
+        {!loginMode && <TextInput
           style={styles.input}
           onChangeText={onChangeName}
           value={name}
           placeholder="Enter Name Here"
-          />
+        />
         }
-        <TextInput 
+        <TextInput
           style={styles.input}
           onChangeText={onChangeEmail}
           value={email}
           placeholder="Enter Email Here"
-          />
-        <TextInput 
+        />
+        <TextInput
           style={styles.input}
           onChangeText={onChangePassword}
           value={password}
           placeholder="Enter Password Here"
           secureTextEntry
-          />
+        />
       </SafeAreaView>
       {/* TODO: Continue with Google button 
       https://docs.expo.dev/versions/latest/sdk/google-sign-in/*/}
-      <Button 
-        onPress={() => authenticate()} 
+      <Button
+        onPress={() => authenticate()}
         title={loginMode ? "Login" : "Signup"} />
-      <Button 
-        onPress={() => forgotPassword()} 
+      <Button
+        onPress={() => forgotPassword()}
         title="Forgot Password?" />
       <StatusBar style="auto" />
     </View>

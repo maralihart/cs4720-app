@@ -9,6 +9,7 @@ import { releaseChannel } from 'expo-updates';
 
 import * as firebase from 'firebase';
 import { getDatabase, ref, onValue } from 'firebase/database';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 import Login from './components/Login/Login';
 import Feed from './components/Feed/Feed';
@@ -24,22 +25,36 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   const firebaseConfig = {
-    apiKey: process.env.API_KEY,
+    apiKey: "AIzaSyA6bvrrwuVo15KB0rjyJefDokY4ac3fYKs",
     authDomain: "cs4710mobileappdev.firebaseapp.com",
     projectId: "cs4710mobileappdev",
     storageBucket: "cs4710mobileappdev.appspot.com",
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    messagingSenderId: "852344152474",
     appId: "1:852344152474:web:55fd0f415224a04400da23",
     measurementId: "G-P3N28NP6LE"
   };
-  
+
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  /*useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);*/
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ authenticated ? "Navbar" : "Login" }>
+      <Stack.Navigator initialRouteName={initializing ? "Navbar" : "Login"}>
         <Stack.Screen name="Navbar" component={Navbar} />
         <Stack.Screen name="Feed" component={Feed} />
         <Stack.Screen name="Calendar" component={Calendar} />
