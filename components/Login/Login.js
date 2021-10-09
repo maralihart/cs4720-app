@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView, Button, StyleSheet, View } from 'react-native';
 import { X } from 'react-native-feather';
 import { TextInput } from 'react-native-gesture-handler';
@@ -22,11 +22,15 @@ export default function Login({ navigation }) {
     setErrorMessage(null)
     if (!loginMode) {
       firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+        userCredential.user.updateProfile({
+          displayName: name
+        })
         var user = userCredential.user;
         console.log(JSON.stringify(user))
         firebase.auth().signInWithEmailAndPassword(email, password)
           .then((userCredential) => {
-            var user = userCredential.user;
+            var user = userCredential;
+            console.log("login: " + user.email + user.name)
             navigation.navigate('Navbar');
           })
           .catch((error) => {

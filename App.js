@@ -47,10 +47,10 @@ export default function App() {
     if (initializing) setInitializing(false);
   }
 
-  /*useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
-  }, []);*/
+  }, []);
 
   return (
     <NavigationContainer>
@@ -62,8 +62,6 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Listing" component={Listing} />
-        {/* TODO: Make sure ListingPreview takes a prop */}
-        <Stack.Screen name="ListingPreview" component={ListingPreview} />
       </Stack.Navigator>
     </NavigationContainer>
   );

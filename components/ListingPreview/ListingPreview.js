@@ -4,7 +4,6 @@ import { Animated, ScrollView, Image, StyleSheet, Text, View } from "react-nativ
 
 export default function BarterListing({ route, navigation }) {
 	useEffect(() => {
-		console.log("key: " + route.params.key)
 		setupListingListener(route.params.key)
 	}, [])
 	const [listingTitle, setTitle] = useState(null)

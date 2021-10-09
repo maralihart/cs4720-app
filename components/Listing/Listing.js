@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
-import React, { useEffect, useState } from "react"
-import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native"
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function BarterListing({ navigation }) {
@@ -38,8 +38,7 @@ export default function BarterListing({ navigation }) {
           renderItem={renderBarterItem}
           keyExtractor={item => {
             setKey(item.key)
-            console.log("key extracted: " + item.key);
-            item.key.toString();
+            return item.key.toString();
           }
           }
           style={styles.container}
