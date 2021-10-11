@@ -1,69 +1,35 @@
-// TODO: Alan
-//
-//  BarterListing
-//  Bazaar 13-Sep-2021-233539
-//
-//  Created by [Author].
-//  Copyright © 2018 [Company]. All rights reserved.
-//
+import * as firebase from 'firebase';
+import React, { useEffect, useState } from "react"
+import { Animated, ScrollView, Image, StyleSheet, Text, View } from "react-native"
 
-import React from "react"
-import { ScrollView, Image, StyleSheet, Text, View } from "react-native"
+export default function BarterListing({ route, navigation }) {
+	useEffect(() => {
+		setupListingListener(route.params.key)
+	}, [])
+	const [listingTitle, setTitle] = useState(null)
+	const [listingContent, setContent] = useState(null)
+	const [listingHeader, setHeader] = useState(null)
 
-
-export default class BarterListing extends React.Component {
-
-	static navigationOptions = ({ navigation }) => {
-	
-		const { params = {} } = navigation.state
-		return {
-				header: null,
-				headerLeft: null,
-				headerRight: null,
-			}
+	function setupListingListener(listingID) {
+		console.log(listingID + "item listener")
+		firebase.database().ref('listings/' + listingID).on('value', (snapshot) => {
+			console.log(listingID + "item listener")
+			console.log(snapshot.val())
+			setTitle(snapshot.val().Title)
+			setContent(snapshot.val().Content)
+			setHeader(snapshot.val().Header)
+		})
 	}
-
-	constructor(props) {
-		super(props)
-	}
-
-	componentDidMount() {
-	
-	}
-
-	render(Title, Content, Header) {
-        var Title = this.props.Title;
-        var Content = this.props.Content;
-        var Header = this.props.Header;
-		return <ScrollView>
-				<Image
-					source={require("./../../assets/images/barter-listing-background-mask.png")}
-					style={styles.Image}/>
-					<Text
-						style={styles.ListingTitle}>{Title}</Text>
-					<Text
-						style={styles.Header}>{Header}</Text>
-						<Text style={styles.Content}>
-                            {Content}
-                   		</Text>
-				</ScrollView>
-	}
+	return <ScrollView>
+		<Text style={styles.ListingTitle}>{!!(listingTitle) && listingTitle}</Text>
+		<Text style={styles.Header}>{!!(listingHeader) && listingHeader}</Text>
+		<Text style={styles.Content}>
+			{!!(listingContent) && listingContent}
+		</Text>
+	</ScrollView>
 }
 
 const styles = StyleSheet.create({
-	background: {
-		backgroundColor: "white",
-		flex: 1,
-	},
-	Image: {
-		resizeMode: "cover",
-		backgroundColor: "transparent",
-		position: "absolute",
-		left: 0,
-		right: 0,
-		top: 65,
-		height: 442,
-	},
 	ListingTitle: {
 		left: 15,
 		color: "black",

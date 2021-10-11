@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
+// import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 import styled from 'styled-components/native';
 
 export function Row(props) {
@@ -71,6 +71,49 @@ export function ListingContainer(props) {
 
   return (
     <Container>
+        {props.children}
     </Container>
+  )
+}
+
+export function ComponentContainer(props) {
+  const Container = styled.View`
+    flex: ${props.flex ? props.flex : 1};
+    backgroundColor: ${props.bgcolor ? props.bgcolor : '#fff'};
+    alignItems: ${props.align ? props.align : 'center'};
+    justifyContent: ${props.justify ? props.justify : 'center'};
+  `;
+
+  return (
+    <Container>
+      {props.children}
+    </Container>
+  )
+}
+
+export function ComponentItem(props) {
+  const Container = styled.View`
+    flex: ${props.flex ? props.flex : 1};
+    width: ${props.width ? props.width : '100%'};
+  `;
+
+  return (
+    <Container>
+      {props.children}
+    </Container>
+  )
+}
+
+export function SmallLogo(props) {
+  const Image = styled.Image`
+    flex: ${props.flex ? props.flex : 1};
+    height: ${props.height ? props.height : 20};
+    resizeMode: ${props.mode ? props.mode : 'contain'};
+  `;
+
+  return (
+    <Image>
+      {props.children}
+    </Image>
   )
 }

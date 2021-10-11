@@ -1,10 +1,9 @@
-
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import { Row, Text } from '../Essentials/Essentials';
+import { Row, Text, Banner, Header } from '../Essentials/Essentials';
 import Listing from '../Listing/Listing';
 import {Image} from 'react-native';
 
@@ -53,21 +52,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         width: "92%"
     },
-    bannerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        flex: 0.5,
-        paddingTop: 50,
-        paddingLeft: 30,
-        paddingRight: 30,
-        width: "120%"
-    },
-    headerContainer: {
-        flex: 0.4,
-        alignItems: "center",
-        justifyContent: "flex-start",
-    },
     searchBarContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -88,27 +72,19 @@ export default function Signup() {
     const [name, onChangeName] = useState(' ')
     const [resuts, onFindResults] = useState(' ')
     
-    const findResults = () => {
-        // implement results
-    }
-    
-    const filter = () => {
-        // implement filter button
-    }  
     return (
         <View style={styles.container}>
-            <View style={styles.headerContainer}>
-                <View style={styles.bannerContainer}>
+            <Header flex={0.4}>
+                    <Banner>
                     <TouchableHighlight>
                         <X style={{color: 'gray'}}/>
                     </TouchableHighlight>
                     <Text bold size={28}>Sign Up</Text>
                     <TouchableHighlight>
                         <Text size={16} color={'green'}>Login</Text>
-                    </TouchableHighlight>
-                </View>
-                {/* <Image style={styles.bigLogo} source={require('../Essentials/bazaar.jpg')}/> */}
-            </View>         
+                    </TouchableHighlight> 
+                    </Banner>
+            </Header>
             <View styles={styles.fieldItem}>
                 <View style={styles.searchContainer}>
                     <View style={styles.searchBarContainer}>
@@ -143,7 +119,6 @@ export default function Signup() {
                 </View>
             </View>
             <View style={styles.item}>
-
             </View>
         </View>
   );

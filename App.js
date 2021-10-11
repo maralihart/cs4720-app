@@ -6,21 +6,21 @@ import SplashScreen from './components/SplashScreen/SplashScreen';
 import Feed from './components/Feed/Feed'
 import Profile from './components/Profile/Profile'
 import Login from './components/Login/Login'
-import Login2 from './components/Login/Login2'
 import Signup from './components/Signup/Signup'
-// import Login from './components/Login/Login';
 
 
 export default function App() {
   return (
     <View style={styles.container}>
       {/* <Text>Open up App.js to start working on your app!</Text> */}
-      {/* <Login2/> */}
       {/* <Signup/> */}
       {/* <Login/> */}
       {/* <SplashScreen/> */}
-      <Feed/>
+      {/* <Feed/> */}
       {/* <SearchBar/> */}
+      {/* <Profile/> */}
+      {/* <Listing/> */} 
+      {/* <ListingPreview/> */}
       <StatusBar style="auto" />
     </View>
 

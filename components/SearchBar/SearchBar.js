@@ -1,5 +1,3 @@
-// TODO: Aditi -- search bar + search results (listing preview)
-
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
@@ -49,15 +47,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         width: "92%"
     },
-    bannerContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        flex: 0.1,
-        paddingTop: 50,
-        paddingLeft: 30,
-        paddingRight: 30
-    },
     searchBarContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -78,30 +67,15 @@ export default function SearchBar() {
     const [name, onChangeName] = useState(' ')
     const [resuts, onFindResults] = useState(' ')
     
-    const findResults = () => {
-        // implement results
-    }
-    
-    const filter = () => {
-        // implement filter button
-    }
-    
     return (
         <View style={styles.container}>
-            <Banner> 
+            <Banner flex={0.1} width={'auto'}> 
                 <TouchableHighlight>
                         <ChevronLeft style={{color: 'green'}}/>
                     </TouchableHighlight>
-                    <Image style={styles.smallLogo} source={require('./bazaar.jpg')}/>
+                    <Image style={styles.smallLogo} source={require('../Essentials/bazaar.jpg')}/>
                     <ChevronLeft style={{opacity: 0}}/>
             </Banner>
-            {/* <View style={styles.bannerContainer}>
-                <TouchableHighlight>
-                    <ChevronLeft style={{color: 'green'}}/>
-                </TouchableHighlight>
-                <Image style={styles.smallLogo} source={require('./bazaar.jpg')}/>
-                <ChevronLeft style={{opacity: 0}}/>
-            </View> */}
             <View style={styles.searchContainer}>
                 <View style={styles.searchBarContainer}>
                     <TextInput 
@@ -110,36 +84,11 @@ export default function SearchBar() {
                         placeholder = "Search"
                         />
                 </View>
-                {/* <Button 
-                    onPress={() => filter()} 
-                    style = {styles.text}
-                    title= "Filter" 
-                /> */}
                 <TouchableHighlight onPress={() => filter()}>
                     <Filter height={18} style={{color: 'green'}}></Filter>
                 </TouchableHighlight>
             </View>              
             <View style={styles.item}>
-                {/* <Row>
-                    <X fill="#000" width={32} height={32} />
-                    <Text size={24}>Search</Text>
-                <Button 
-                    onPress={() => filter()} 
-                    style = {styles.text}
-                    title= "Filter" 
-                />
-                </Row>
-        
-            <TextInput 
-                style = {styles.input}
-                onChangeText = {onSearchTopic}
-                placeholder = "Search"
-                />
-            <Button 
-                onPress={() => findResults()} 
-                title= "Go" 
-                />
-            <StatusBar style="auto" /> */}
             <View style={styles.listingContainer}>
                 <Listing
                     data = {[
