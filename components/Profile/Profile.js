@@ -1,6 +1,8 @@
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import 'firebase/auth';
+import * as firebase from 'firebase';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
 import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { Banner, Row, Text, Header} from '../Essentials/Essentials';
@@ -45,10 +47,18 @@ const styles = StyleSheet.create({
     
     });
 
-export default function Profile() {
-    const [topic, onSearchTopic] = useState('Search')
-    const [name, onChangeName] = useState(' ')
-    const [resuts, onFindResults] = useState(' ')
+    export default function Profile({ navigation }) {
+        const auth = firebase.auth();
+        const [name, setName] = useState(null);
+        const [email, setEmail] = useState(null);
+        auth.onAuthStateChanged(user => {
+          console.log(user);
+          if (user) {
+            setName(user.displayName);
+            setEmail(user.email);
+          } else {
+          }
+        });
     
     return (
         <View style={styles.container}>
@@ -64,7 +74,7 @@ export default function Profile() {
                 </Banner>
             </Header>
             <View style={styles.item}>
-                <Text size={32} bold>Student Name</Text>
+                <Text size={32} bold>Student Name{!!(name) && name}</Text>
                     <Listing
                         data = {[
                             {key: 1, Title: 'Free item 1', Content: 'This is a free item'},
@@ -73,6 +83,7 @@ export default function Profile() {
                             {key: 4, Title: 'Free item 4', Content: 'This is a free item'},
                         ]}
                     />
+                <Text>{!!(email) && email}</Text>
             </View>              
             <View style={styles.item}>
         </View>

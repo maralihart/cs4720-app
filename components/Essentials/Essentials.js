@@ -13,7 +13,6 @@ export function Row(props) {
 }
 
 export function Text(props) {
-
   const Text = styled.Text`
     font-size: ${props.size ? props.size + "px" : "12px"};
     color: ${props.color ? props.color : 'black'};
