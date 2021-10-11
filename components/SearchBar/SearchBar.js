@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import { Row, Text } from '../Essentials/Essentials';
+import { Row, Text, Banner } from '../Essentials/Essentials';
 import Listing from '../Listing/Listing';
 import {Image} from 'react-native';
 
@@ -88,13 +88,20 @@ export default function SearchBar() {
     
     return (
         <View style={styles.container}>
-            <View style={styles.bannerContainer}>
+            <Banner> 
+                <TouchableHighlight>
+                        <ChevronLeft style={{color: 'green'}}/>
+                    </TouchableHighlight>
+                    <Image style={styles.smallLogo} source={require('./bazaar.jpg')}/>
+                    <ChevronLeft style={{opacity: 0}}/>
+            </Banner>
+            {/* <View style={styles.bannerContainer}>
                 <TouchableHighlight>
                     <ChevronLeft style={{color: 'green'}}/>
                 </TouchableHighlight>
                 <Image style={styles.smallLogo} source={require('./bazaar.jpg')}/>
                 <ChevronLeft style={{opacity: 0}}/>
-            </View>
+            </View> */}
             <View style={styles.searchContainer}>
                 <View style={styles.searchBarContainer}>
                     <TextInput 

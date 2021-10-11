@@ -1,4 +1,3 @@
-// TODO: Aditi -- search bar + search results (listing preview)
 
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
