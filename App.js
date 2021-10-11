@@ -62,6 +62,7 @@ export default function App() {
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Listing" component={Listing} />
+        <Stack.Screen name="ListingPreview" component={ListingPreview} />
       </Stack.Navigator>
     </NavigationContainer>
   );
