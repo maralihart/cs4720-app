@@ -13,12 +13,12 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 import Login from './components/Login/Login';
 import Feed from './components/Feed/Feed';
-import Calendar from './components/Calendar/Calendar.js';
+import Calendar from './components/Calendar/Calendar';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
-import Listing from './components/Listing/Listing.js';
-import ListingPreview from './components/ListingPreview/ListingPreview.js';
+import Listing from './components/Listing/Listing';
+import ListingPreview from './components/ListingPreview/ListingPreview';
 
 export default function App() {
   const [authenticated, setAuthenticated] = useState(true);
