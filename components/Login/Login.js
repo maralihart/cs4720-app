@@ -31,6 +31,7 @@ export default function Login({ navigation }) {
           .then((userCredential) => {
             var user = userCredential;
             console.log("login: " + user.email + user.name)
+            onChangePassword('');
             navigation.navigate('Navbar');
           })
           .catch((error) => {
@@ -49,6 +50,7 @@ export default function Login({ navigation }) {
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           var user = userCredential.user;
+          onChangePassword('');
           navigation.navigate('Navbar');
         })
         .catch((error) => {
