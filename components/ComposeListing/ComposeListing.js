@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
 import 'firebase/auth';
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Button } from 'react-native';
 
-export default function ComposeListing() {
+export default function ComposeListing( { navigation } ) {
   const [title, onChangeTitle] = useState('')
   const [header, onChangeHeader] = useState('')
   const [content, onChangeContent] = useState('')
@@ -19,6 +19,18 @@ export default function ComposeListing() {
       setPosts(snapshot.val());
     });
   }
+  const auth = firebase.auth();
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  auth.onAuthStateChanged(user => {
+    console.log(user);
+    if (user) {
+      setName(user.displayName);
+      setEmail(user.email);
+    } else {
+    }
+  });
+
   useEffect(() => {
     setupPostsListener()
   }, [])
@@ -36,9 +48,13 @@ export default function ComposeListing() {
         Header: header,
         Title: title,
         key: num,
-        Poster: firebase.auth().currentUser.name,
-        user: firebase.auth().currentUser.email,
+        Poster: name,
+        user: email,
       })
+      onChangeTitle('');
+      onChangeHeader('');
+      onChangeContent('');
+      navigation.navigate('Navbar');
     }
   }
   return (

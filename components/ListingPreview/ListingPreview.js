@@ -2,7 +2,7 @@ import * as firebase from 'firebase';
 import React, { useEffect, useState } from "react"
 import { Animated, ScrollView, Image, StyleSheet, Text, View } from "react-native"
 
-export default function BarterListing({ route, navigation }) {
+export default function Listing({ route, navigation }) {
 	useEffect(() => {
 		setupListingListener(route.params.key)
 	}, [])
