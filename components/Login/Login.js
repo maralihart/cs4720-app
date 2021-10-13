@@ -21,16 +21,36 @@ export default function Login({ navigation }) {
     // TODO: Set up API to handle authentication
     setErrorMessage(null)
     if (!loginMode) {
-      firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
-        userCredential.user.updateProfile({
-          displayName: name
+      if(email.toLowerCase.includes('@virginia.edu')){
+        firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+          userCredential.user.updateProfile({
+            displayName: name
+          })
+          var user = userCredential.user;
+          console.log(JSON.stringify(user))
+          firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+              var user = userCredential;
+              console.log("login: " + user.email + user.name)
+              onChangePassword('');
+              navigation.navigate('Navbar');
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+              console.log(errorMessage);
+            });
+          console.log("Logging in as", email, password)
         })
-        var user = userCredential.user;
-        console.log(JSON.stringify(user))
+          .catch((error) => {
+            setErrorMessage(error.message);
+            console.log(errorMessage);
+          });
+        console.log("Signing up with", name, email, password)
+
+      } else {
         firebase.auth().signInWithEmailAndPassword(email, password)
           .then((userCredential) => {
-            var user = userCredential;
-            console.log("login: " + user.email + user.name)
+            var user = userCredential.user;
             onChangePassword('');
             navigation.navigate('Navbar');
           })
@@ -39,25 +59,10 @@ export default function Login({ navigation }) {
             console.log(errorMessage);
           });
         console.log("Logging in as", email, password)
-      })
-        .catch((error) => {
-          setErrorMessage(error.message);
-          console.log(errorMessage);
-        });
-      console.log("Signing up with", name, email, password)
-
-    } else {
-      firebase.auth().signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          var user = userCredential.user;
-          onChangePassword('');
-          navigation.navigate('Navbar');
-        })
-        .catch((error) => {
-          setErrorMessage(error.message);
-          console.log(errorMessage);
-        });
-      console.log("Logging in as", email, password)
+      }
+    }
+    else{
+      setErrorMessage('Please use a Univeristy of Virginia email')
     }
   }
 
