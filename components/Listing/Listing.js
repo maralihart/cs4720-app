@@ -29,12 +29,21 @@ export default function BarterListing({ navigation }) {
       </View >)
   }
 
+  function SortingFunction(first, second){
+    if (first.key > second.key){
+      return -1;
+    }
+    else{
+      return 1;
+    }
+  }
+
   return (
     <SafeAreaView>
       <Text style={styles.Logo}>B</Text>
       {Array.isArray(data) &&
         <FlatList
-          data={data}
+          data={data.sort(SortingFunction)}
           renderItem={renderBarterItem}
           keyExtractor={item => {
             setKey(item.key)
