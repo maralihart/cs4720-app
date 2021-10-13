@@ -13,7 +13,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 import Login from './components/Login/Login';
 import Feed from './components/Feed/Feed';
-import Calendar from './components/Calendar/Calendar';
+import Calendar from './components/Calendar/Calendar.js';
 import Navbar from './components/Navbar/Navbar';
 import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
