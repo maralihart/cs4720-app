@@ -8,6 +8,7 @@ import * as firebase from 'firebase';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import 'firebase/auth';
 
 export default function Login({ navigation }) {
   const [loginMode, SetLoginMode] = useState(true)
@@ -21,24 +22,15 @@ export default function Login({ navigation }) {
     // TODO: Set up API to handle authentication
     setErrorMessage(null)
     if (!loginMode) {
-      if(email.toLowerCase.includes('@virginia.edu')){
+      if(email.toLowerCase().includes('@virginia.edu')){
         firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
           userCredential.user.updateProfile({
             displayName: name
           })
           var user = userCredential.user;
           console.log(JSON.stringify(user))
-          firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-              var user = userCredential;
-              console.log("login: " + user.email + user.name)
-              onChangePassword('');
-              navigation.navigate('Navbar');
-            })
-            .catch((error) => {
-              setErrorMessage(error.message);
-              console.log(errorMessage);
-            });
+          firebase.auth().currentUser.sendEmailVerification().then(() => {});
+          setErrorMessage("Please check your email to verify your account");
           console.log("Logging in as", email, password)
         })
           .catch((error) => {
@@ -47,12 +39,21 @@ export default function Login({ navigation }) {
           });
         console.log("Signing up with", name, email, password)
 
-      } else {
+      }
+      else{
+        setErrorMessage('Please use a Univeristy of Virginia email')
+      } 
+    }else {
         firebase.auth().signInWithEmailAndPassword(email, password)
           .then((userCredential) => {
-            var user = userCredential.user;
-            onChangePassword('');
-            navigation.navigate('Navbar');
+            var user = firebase.auth().currentUser;
+            if(user.emailVerified){
+              onChangePassword('');
+              navigation.navigate('Navbar');
+            }
+            else{
+              setErrorMessage("Please check your email to verify your account");
+            }
           })
           .catch((error) => {
             setErrorMessage(error.message);
@@ -60,10 +61,6 @@ export default function Login({ navigation }) {
           });
         console.log("Logging in as", email, password)
       }
-    }
-    else{
-      setErrorMessage('Please use a Univeristy of Virginia email')
-    }
   }
 
   const forgotPassword = () => {
