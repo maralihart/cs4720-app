@@ -13,9 +13,7 @@ export default function ComposeListing( { navigation } ) {
   const [posts, setPosts] = useState()
 
   function setupPostsListener() {
-    console.log("LOG: " + firebase.database().ref('/Posts'));
     firebase.database().ref('/Posts').on('value', (snapshot) => {
-      console.log(snapshot.val());
       setPosts(snapshot.val());
     });
   }
@@ -23,7 +21,6 @@ export default function ComposeListing( { navigation } ) {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   auth.onAuthStateChanged(user => {
-    console.log(user);
     if (user) {
       setName(user.displayName);
       setEmail(user.email);
@@ -40,7 +37,6 @@ export default function ComposeListing( { navigation } ) {
       setErrorMessage("Please fill out all fields");
     }
     else{
-      console.log(posts);
       const num = posts + 1;
       firebase.database().ref('/Posts').set(num);
       firebase.database().ref('/listings/' + num).set({

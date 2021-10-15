@@ -9,7 +9,6 @@ export default function Profile({ navigation }) {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
   auth.onAuthStateChanged(user => {
-    console.log(user);
     if (user) {
       setName(user.displayName);
       setEmail(user.email);
