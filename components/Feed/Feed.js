@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     
     });
 
-export default function Feed() {
+export default function Feed({ navigation }) {
     const [topic, onSearchTopic] = useState('Search')
     
     return (

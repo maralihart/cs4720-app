@@ -11,16 +11,8 @@ export default function Navbar({ navigation }) {
         onPress={() => navigation.navigate('ComposeListing')}
       />
       <Button
-        title="Feed"
-        onPress={() => navigation.navigate('Feed')}
-      />
-      <Button
         title="Listings"
         onPress={() => navigation.navigate('Listing')}
-      />
-      <Button
-        title="Login"
-        onPress={() => navigation.navigate('Login')}
       />
       <StatusBar style="auto" />
     </View>

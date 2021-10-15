@@ -50,9 +50,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Navbar"}>
+      <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Login"}>
         <Stack.Screen name="Navbar" component={Navbar} />
-        <Stack.Screen name="Feed" component={Feed} />
         <Stack.Screen name="ComposeListing" component={ComposeListing} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Listing" component={Listing} />
