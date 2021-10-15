@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import 'firebase/auth';
 import * as firebase from 'firebase';
-import { StatusBar } from 'expo-status-bar';
-import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { Banner, Row, Text, Header} from '../Essentials/Essentials';
-import Listing from '../Listing/Listing';
-import {Image} from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -75,14 +71,6 @@ const styles = StyleSheet.create({
             </Header>
             <View style={styles.item}>
                 <Text size={32} bold>Student Name{!!(name) && name}</Text>
-                    <Listing
-                        data = {[
-                            {key: 1, Title: 'Free item 1', Content: 'This is a free item'},
-                            {key: 2, Title: 'Free item 2', Content: 'This is a free item'},
-                            {key: 3, Title: 'Free item 3', Content: 'This is a free item'},
-                            {key: 4, Title: 'Free item 4', Content: 'This is a free item'},
-                        ]}
-                    />
                 <Text>{!!(email) && email}</Text>
             </View>              
             <View style={styles.item}>

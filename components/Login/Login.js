@@ -1,12 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
-import { X, Filter, ChevronLeft} from 'react-native-feather';
+import { StyleSheet, View } from 'react-native';
+import { X } from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { Row, Text, Header, Banner } from '../Essentials/Essentials';
-import Listing from '../Listing/Listing';
-import {Image} from 'react-native';
-
+import * as firebase from 'firebase';
 
 const styles = StyleSheet.create({
     container: {
@@ -68,48 +65,91 @@ const styles = StyleSheet.create({
     });
 
 export default function Signup() {  
-    const [topic, onSearchTopic] = useState('Search')
-    const [name, onChangeName] = useState(' ')
-    const [resuts, onFindResults] = useState(' ')
-     
-    return (
-        <View style={styles.container}>
-            <Header flex={0.4}>
-                <Banner>
-                <TouchableHighlight>
-                        <X style={{color: 'gray'}}/>
-                    </TouchableHighlight>
-                    <Text bold size={28}>Log In</Text>
-                    <TouchableHighlight>
-                        <Text size={16} color={'green'}>Sign Up</Text>
-                    </TouchableHighlight>
-                </Banner>
-            </Header>
-            <View styles={styles.fieldItem}>
-                <View style={styles.searchContainer}>
-                    <View style={styles.searchBarContainer}>
-                        <TextInput 
-                            style = {styles.input}
-                            onChangeText = {onSearchTopic}
-                            placeholder = "Email"
-                            />
-                    </View>
-                </View>
-            </View>
-            <View styles={styles.fieldItem}>
-                <View style={styles.searchContainer}>
-                    <View style={styles.searchBarContainer}>
-                        <TextInput 
-                            style = {styles.input}
-                            onChangeText = {onSearchTopic}
-                            placeholder = "Password"
-                            />
-                    </View>
-                </View>
-            </View>
-            <View style={styles.item}>
+  const [topic, onSearchTopic] = useState('Search')
+  const [name, onChangeName] = useState(' ')
+  const [resuts, onFindResults] = useState(' ')
 
-            </View>
-        </View>
-  );
-};
+  const authenticate = () => {
+    setErrorMessage(null)
+    if (!loginMode) {
+      if(email.toLowerCase().includes('@virginia.edu')){
+        firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredential) => {
+          userCredential.user.updateProfile({
+            displayName: name
+          })
+          var user = userCredential.user;
+          console.log(JSON.stringify(user))
+          firebase.auth().currentUser.sendEmailVerification().then(() => {});
+          setErrorMessage("Please check your email to verify your account");
+          console.log("Logging in as", email, password)
+        })
+          .catch((error) => {
+            setErrorMessage(error.message);
+            console.log(errorMessage);
+          });
+        console.log("Signing up with", name, email, password)
+
+      }
+      else{
+        setErrorMessage('Please use a Univeristy of Virginia email')
+      } 
+    }else {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+          .then((userCredential) => {
+            var user = firebase.auth().currentUser;
+            if(user.emailVerified){
+              onChangePassword('');
+              navigation.navigate('Navbar');
+            }
+            else{
+              setErrorMessage("Please check your email to verify your account");
+            }
+          })
+          .catch((error) => {
+            setErrorMessage(error.message);
+            console.log(errorMessage);
+          });
+        console.log("Logging in as", email, password)
+      }
+  }
+    
+  return (
+    <View style={styles.container}>
+      <Header flex={0.4}>
+          <Banner>
+          <TouchableHighlight>
+                  <X style={{color: 'gray'}}/>
+              </TouchableHighlight>
+              <Text bold size={28}>Log In</Text>
+              <TouchableHighlight>
+                  <Text size={16} color={'green'}>Sign Up</Text>
+              </TouchableHighlight>
+          </Banner>
+      </Header>
+      <View styles={styles.fieldItem}>
+          <View style={styles.searchContainer}>
+              <View style={styles.searchBarContainer}>
+                  <TextInput 
+                      style = {styles.input}
+                      onChangeText = {onSearchTopic}
+                      placeholder = "Email"
+                      />
+              </View>
+          </View>
+      </View>
+      <View styles={styles.fieldItem}>
+          <View style={styles.searchContainer}>
+              <View style={styles.searchBarContainer}>
+                  <TextInput 
+                      style = {styles.input}
+                      onChangeText = {onSearchTopic}
+                      placeholder = "Password"
+                      />
+              </View>
+          </View>
+      </View>
+      <View style={styles.item}>
+      </View>
+    </View>
+  )
+}

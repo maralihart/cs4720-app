@@ -29,12 +29,14 @@ export default function BarterListing({ navigation }) {
       </View >)
   }
 
+  const sort = (a, b) => a.key > b.key ? -1 : 1
+
   return (
     <SafeAreaView>
       <Text style={styles.Logo}>B</Text>
       {Array.isArray(data) &&
         <FlatList
-          data={data}
+          data={data.sort(sort)}
           renderItem={renderBarterItem}
           keyExtractor={item => {
             setKey(item.key)
