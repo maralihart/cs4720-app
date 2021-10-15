@@ -1,31 +1,32 @@
 import * as firebase from 'firebase';
 import React, { useEffect, useState } from "react"
-import { ScrollView, Image, StyleSheet, Text, View } from "react-native"
+import { Animated, ScrollView, Image, StyleSheet, Text, View } from "react-native"
 
-export default function BarterListing(props){
-		useEffect(()=>{
-			setupListingListener(props.ID)
-		}, [])
-		const [listingTitle, setTitle] = useState(null)
-		const [listingContent, setContent] = useState(null)
-		const [listingHeader, setHeader] = useState(null) 
-	   
-		function setupListingListener(listingID){
-			firebase.database().ref('listings/'+listingID).on('value', (snapshot)=>{
+export default function Listing({ route, navigation }) {
+	useEffect(() => {
+		setupListingListener(route.params.key)
+	}, [])
+	const [listingTitle, setTitle] = useState(null)
+	const [listingContent, setContent] = useState(null)
+	const [listingHeader, setHeader] = useState(null)
+
+	function setupListingListener(listingID) {
+		console.log(listingID + "item listener")
+		firebase.database().ref('listings/' + listingID).on('value', (snapshot) => {
+			console.log(listingID + "item listener")
+			console.log(snapshot.val())
 			setTitle(snapshot.val().Title)
 			setContent(snapshot.val().Content)
 			setHeader(snapshot.val().Header)
-			})
-		}
-		return <ScrollView>
-					<Text
-						style={styles.ListingTitle}>{listingTitle}</Text>
-					<Text
-						style={styles.Header}>{listingHeader}</Text>
-						<Text style={styles.Content}>
-                            {listingContent}
-                   		</Text>
-				</ScrollView>
+		})
+	}
+	return <ScrollView>
+		<Text style={styles.ListingTitle}>{!!(listingTitle) && listingTitle}</Text>
+		<Text style={styles.Header}>{!!(listingHeader) && listingHeader}</Text>
+		<Text style={styles.Content}>
+			{!!(listingContent) && listingContent}
+		</Text>
+	</ScrollView>
 }
 
 const styles = StyleSheet.create({
