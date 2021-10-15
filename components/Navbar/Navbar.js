@@ -5,18 +5,10 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 export default function Navbar({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Navbar</Text>
-      <Button
-        title="Calendar"
-        onPress={() => navigation.navigate('Calendar')}
-      />
+      <Text>Navigation</Text>
       <Button
         title="New Listing"
         onPress={() => navigation.navigate('ComposeListing')}
-      />
-      <Button
-        title="Profile"
-        onPress={() => navigation.navigate('Profile')}
       />
       <Button
         title="Feed"
@@ -27,7 +19,7 @@ export default function Navbar({ navigation }) {
         onPress={() => navigation.navigate('Listing')}
       />
       <Button
-        title="Delete later -- login"
+        title="Login"
         onPress={() => navigation.navigate('Login')}
       />
       <StatusBar style="auto" />

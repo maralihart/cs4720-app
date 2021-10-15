@@ -13,15 +13,12 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 import Login from './components/Login/Login';
 import Feed from './components/Feed/Feed';
-import Calendar from './components/Calendar/Calendar';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
 import Listing from './components/Listing/Listing';
 import ListingPreview from './components/ListingPreview/ListingPreview';
 
 export default function App() {
-  const [authenticated, setAuthenticated] = useState(true);
   const Stack = createNativeStackNavigator();
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
@@ -53,12 +50,10 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Login"}>
+      <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Navbar"}>
         <Stack.Screen name="Navbar" component={Navbar} />
         <Stack.Screen name="Feed" component={Feed} />
-        <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="ComposeListing" component={ComposeListing} />
-        <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Listing" component={Listing} />
         <Stack.Screen name="ListingPreview" component={ListingPreview} />
