@@ -62,19 +62,17 @@ const styles = StyleSheet.create({
     
     });
 
-export default function Feed() {
+export default function Feed({ navigation }) {
     const [topic, onSearchTopic] = useState('Search')
-    const [name, onChangeName] = useState(' ')
-    const [resuts, onFindResults] = useState(' ')
     
     return (
         <View style={styles.container}>
             <Banner flex={0.1} width={'auto'}> 
                 <TouchableHighlight>
-                        <ChevronLeft style={{color: 'green'}}/>
-                    </TouchableHighlight>
-                    <Image style={styles.smallLogo} source={require('../Essentials/bazaar.jpg')}/>
-                    <ChevronLeft style={{opacity: 0}}/>
+                    <ChevronLeft style={{color: 'green'}}/>
+                </TouchableHighlight>
+                <Image style={styles.smallLogo} source={require('../Essentials/bazaar.jpg')}/>
+                <ChevronLeft style={{opacity: 0}}/>
             </Banner>
             <View style={styles.searchContainer}>
                 <View style={styles.searchBarContainer}>
@@ -89,16 +87,9 @@ export default function Feed() {
                 </TouchableHighlight>
             </View>              
             <View style={styles.item}>
-            <View style={styles.listingContainer}>
-                <Listing
-                    data = {[
-                        {key: 1, Title: 'Free item 1', Content: 'This is a free item'},
-                        {key: 2, Title: 'Free item 2', Content: 'This is a free item'},
-                        {key: 3, Title: 'Free item 3', Content: 'This is a free item'},
-                        {key: 4, Title: 'Free item 4', Content: 'This is a free item'},
-                    ]}
-                />
-            </View>
+                <View style={styles.listingContainer}>
+                    <Listing />
+                </View>
             </View>
         </View>
   );

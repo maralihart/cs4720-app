@@ -13,17 +13,16 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 
 import Login from './components/Login/Login';
 import Feed from './components/Feed/Feed';
-import Calendar from './components/Calendar/Calendar';
 import Navbar from './components/Navbar/Navbar';
-import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
-import Listing from './components/Listing/Listing.js';
-import ListingPreview from './components/ListingPreview/ListingPreview.js';
+import Listing from './components/Listing/Listing';
+import ListingPreview from './components/ListingPreview/ListingPreview';
 
 export default function App() {
-  const [authenticated, setAuthenticated] = useState(true);
   const Stack = createNativeStackNavigator();
-
+  // Set an initializing state whilst Firebase connects
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
   const firebaseConfig = {
     apiKey: "AIzaSyA6bvrrwuVo15KB0rjyJefDokY4ac3fYKs",
     authDomain: "cs4710mobileappdev.firebaseapp.com",
@@ -37,10 +36,7 @@ export default function App() {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   }
-  // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
+  
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
@@ -56,12 +52,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Login"}>
         <Stack.Screen name="Navbar" component={Navbar} />
-        <Stack.Screen name="Feed" component={Feed} />
-        <Stack.Screen name="Calendar" component={Calendar} />
         <Stack.Screen name="ComposeListing" component={ComposeListing} />
-        <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Listing" component={Listing} />
+        <Stack.Screen name="ListingPreview" component={ListingPreview} />
       </Stack.Navigator>
     </NavigationContainer>
   );
