@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
 import { StatusBar } from 'expo-status-bar';
 import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import { Banner, Row, Text, Header} from '../Essentials/Essentials';
+import { Banner, Row, Header, ListingContainer, ComponentContainer, ComponentItem, SmallLogo} from '../Essentials/Essentials';
 import Listing from '../Listing/Listing';
 import {Image} from 'react-native';
 
