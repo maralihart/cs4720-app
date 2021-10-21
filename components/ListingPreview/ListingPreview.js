@@ -12,10 +12,7 @@ export default function Listing({ route, navigation }) {
 	const [listingHeader, setHeader] = useState(null)
 
 	function setupListingListener(listingID) {
-		console.log(listingID + "item listener")
 		firebase.database().ref('listings/' + listingID).on('value', (snapshot) => {
-			console.log(listingID + "item listener")
-			console.log(snapshot.val())
 			setTitle(snapshot.val().Title)
 			setContent(snapshot.val().Content)
 			setHeader(snapshot.val().Header)

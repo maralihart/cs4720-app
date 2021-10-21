@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 export default function Navbar({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Navigation</Text>
+      <Text>Bazaar</Text>
       <Button
         title="New Listing"
         onPress={() => navigation.navigate('ComposeListing')}
