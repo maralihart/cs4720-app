@@ -26,6 +26,35 @@ export function Text(props) {
   );
 }
 
+export function DefaultContainer(props) {
+  const Container = styled.View`
+    flex: ${props.flex ? props.flex : 1};
+    backgroundColor: ${props.bgcolor ? props.bgcolor : '#fff'};
+    alignItems: ${props.align ? props.align : 'center'};
+    justifyContent: ${props.justify ? props.justify : 'center'};
+  `;
+
+  return (
+    <Container>
+      { props.children }
+    </Container>
+  )
+}
+
+export function PageContainer(props) {
+  const Container = styled.View`
+    flex: ${props.flex ? props.flex : 1};
+    backgroundColor: ${props.bgcolor ? props.bgcolor : '#fff'};
+    justifyContent: ${props.justify ? props.justify : 'center'};
+  `;
+
+  return (
+    <Container>
+      { props.children }
+    </Container>
+  )
+}
+
 export function Header(props) {
   const Header = styled.View`
     flex: ${props.flex ? props.flex : 1};
@@ -94,6 +123,20 @@ export function ComponentItem(props) {
   const Container = styled.View`
     flex: ${props.flex ? props.flex : 1};
     width: ${props.width ? props.width : '100%'};
+  `;
+
+  return (
+    <Container>
+      {props.children}
+    </Container>
+  )
+}
+
+export function FieldItem(props) {
+  const Container = styled.View`
+    flex: ${props.flex ? props.flex : 1};
+    width: ${props.width ? props.width : '100%'};
+    padding: ${props.padding ? props.padding + 'px' : '200px'};
   `;
 
   return (

@@ -17,6 +17,7 @@ import Navbar from './components/Navbar/Navbar';
 import ComposeListing from './components/ComposeListing/ComposeListing';
 import Listing from './components/Listing/Listing';
 import ListingPreview from './components/ListingPreview/ListingPreview';
+import { DefaultContainer, PageContainer } from './components/Essentials/Essentials';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -49,14 +50,16 @@ export default function App() {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Login"}>
-        <Stack.Screen name="Navbar" component={Navbar} />
-        <Stack.Screen name="ComposeListing" component={ComposeListing} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Listing" component={Listing} />
-        <Stack.Screen name="ListingPreview" component={ListingPreview} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PageContainer>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName={!initializing ? "Login" : "Login"}>
+          <Stack.Screen name="ComposeListing" component={ComposeListing} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Listing" component={Listing} />
+          <Stack.Screen name="ListingPreview" component={ListingPreview} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <Navbar/>
+    </PageContainer>
   );
 }

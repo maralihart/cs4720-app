@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Button, SafeAreaView } from 'react-native';
 import { X } from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import { Row, Text, Header, Banner } from '../Essentials/Essentials';
+import { Row, Text, Header, Banner, FieldItem } from '../Essentials/Essentials';
+import Navbar from '../Navbar/Navbar';
 import * as firebase from 'firebase';
 
 const styles = StyleSheet.create({
