@@ -52,14 +52,15 @@ export default function App() {
   return (
     <PageContainer>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName={!initializing ? "Login" : "Login"}>
+        <Stack.Navigator initialRouteName={!initializing ? "Feed" : "Feed"}>
           <Stack.Screen name="ComposeListing" component={ComposeListing} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Feed" component={Feed} />
           <Stack.Screen name="Listing" component={Listing} />
           <Stack.Screen name="ListingPreview" component={ListingPreview} />
         </Stack.Navigator>
       </NavigationContainer>
       <Navbar/>
-    </PageContainer>
+     </PageContainer>
   );
 }

@@ -5,6 +5,8 @@ import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { Row, Text, Header, Banner, FieldItem } from '../Essentials/Essentials';
 import Navbar from '../Navbar/Navbar';
 import * as firebase from 'firebase';
+import {Image} from 'react-native';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -44,6 +46,12 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 10,
         resizeMode: 'contain'
+    },
+    smallLogo: {
+      flex: 2,
+      height: 20,
+      resizeMode: 'contain'
+      // padding: 30
     },
     searchContainer: {
         padding: 30,
@@ -121,6 +129,13 @@ const styles = StyleSheet.create({
         }
       return (
         <View style={styles.container}>
+            <Banner flex={0.1} width={'auto'}> 
+                {/* <TouchableHighlight>
+                <ChevronLeft style={{color: 'db6b5c'}}/>
+                </TouchableHighlight> */}
+                <Image style={styles.smallLogo} source={require('../Essentials/bazaar.jpg')}/>
+                {/* <ChevronLeft style={{opacity: 0}}/> */}
+            </Banner>
           <Row>
             <X fill="#000" width={32} height={32} />
             {loginMode
@@ -129,7 +144,8 @@ const styles = StyleSheet.create({
             }
             <Button
               onPress={() => SetLoginMode(!loginMode)}
-              title={loginMode ? "Sign Up" : "Login"} />
+              title={loginMode ? "Sign Up" : "Login"}
+              color = "#db6b5c" />
           </Row>
           <Text color="red">{errorMessage}</Text>
           <SafeAreaView>
@@ -170,7 +186,8 @@ const styles = StyleSheet.create({
           https://docs.expo.dev/versions/latest/sdk/google-sign-in/*/}
           <Button
             onPress={() => authenticate()}
-            title={loginMode ? "Login" : "Signup"} />
+            title={loginMode ? "Login" : "Signup"}
+            color = "#db6b5c" />
         </View>
       );
     }
@@ -267,6 +284,7 @@ const styles = StyleSheet.create({
       <Button
         onPress={() => authenticate()}
         title={loginMode ? "Login" : "Signup"} />
+        color = "#db6b5c"
     </View>
   )
 }

@@ -2,6 +2,8 @@ import * as firebase from 'firebase';
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Row, Banner, Header } from '../Essentials/Essentials';
+
 
 export default function BarterListing({ navigation }) {
   const [data, setData] = useState(null)
@@ -31,7 +33,10 @@ export default function BarterListing({ navigation }) {
 
   return (
     <SafeAreaView>
-      <Text style={styles.Logo}>B</Text>
+      {/* <Text style={styles.Logo}>B</Text> */}
+      {/* <Banner flex={0.1} width={'auto'}> 
+                <Image style={styles.smallLogo} source={require('../Essentials/bazaar.jpg')}/>
+            </Banner> */}
       {Array.isArray(data) &&
         <FlatList
           data={data.sort(sort)}

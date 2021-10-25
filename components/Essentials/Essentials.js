@@ -136,7 +136,7 @@ export function FieldItem(props) {
   const Container = styled.View`
     flex: ${props.flex ? props.flex : 1};
     width: ${props.width ? props.width : '100%'};
-    padding: ${props.padding ? props.padding + 'px' : '200px'};
+    padding: ${props.padding ? props.padding +'px' : '`200px`'};
   `;
 
   return (
