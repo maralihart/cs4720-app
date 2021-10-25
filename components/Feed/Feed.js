@@ -3,65 +3,12 @@ import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
 import { X, Filter, ChevronLeft} from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import { Row, Text, Banner, Header, DefaultContainer } from '../Essentials/Essentials';
+import { Row, Text, Banner, Header, DefaultContainer, ComponentItem, ListingContainer, SmallLogo } from '../Essentials/Essentials';
 import Listing from '../Listing/Listing';
 import {Image} from 'react-native';
 import styled from 'styled-components';
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    input: {
-        height: 40,
-        margin: 12,
-        marginRight: 0,
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: "lightgray",
-        padding: 10,
-        width: 300,
-        flex: 4,
-        backgroundColor: "rgb(242, 242, 247)"
-    },
-    text: {
-        color: '#db6b5c',
-        fontSize: 12
-    },
-    item: {
-        flex: 1,
-        width: "100%"
-    },
-    smallLogo: {
-        flex: 2,
-        height: 20,
-        resizeMode: 'contain'
-    },
-    searchContainer: {
-        flex: 0.05,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "92%"
-    },
-    searchBarContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 320,
-    },
-    listingContainer: {
-        position: 'absolute',
-        right: 0,
-        justifyContent: 'flex-start',
-        alignItems: 'flex-start'
-    },
-    
-    });
 function FilterButton(props) {
     const color = props.color ? props.color : '#db6b5c';
     const height = props.height ? props.height + 'px' : '18px';
@@ -133,28 +80,15 @@ export default function Feed({ navigation }) {
                 <TouchableHighlight>
                 <ChevronLeft style={{color: 'db6b5c'}}/>
                 </TouchableHighlight>
-                <Image style={styles.smallLogo} source={require('../Essentials/bazaar.jpg')}/>
+                <SmallLogo flex={2}></SmallLogo>
                 <ChevronLeft style={{opacity: 0}}/>
             </Banner>
             <SearchContainer onChangeText={onSearchTopic}/>
-            {/* <View style={styles.searchContainer}> */}
-                {/* <View style={styles.searchBarContainer}> */}
-                    {/* <Text color={'black'} size={12} bold styles={styles.item}>Search Feed</Text> */}
-                    {/* <TextInput  */}
-                        {/* style = {styles.input} */}
-                        {/* onChangeText = {onSearchTopic} */}
-                        {/* placeholder = "Search Feed" */}
-                        {/* /> */}
-                {/* </View> */}
-                {/* <TouchableHighlight onPress={() => filter()}> */}
-                    {/* <Filter height={18} style={{color: '#db6b5c'}}></Filter> */}
-                {/* </TouchableHighlight> */}
-            {/* </View>               */}
-            <View style={styles.item}>
-                <View style={styles.listingContainer}>
+            <ComponentItem>
+                <ListingContainer>
                     <Listing />
-                </View>
-            </View>
+                </ListingContainer>
+            </ComponentItem>
         </DefaultContainer>
   );
 };

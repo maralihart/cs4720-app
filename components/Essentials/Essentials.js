@@ -154,7 +154,7 @@ export function SmallLogo(props) {
   `;
 
   return (
-    <Image>
+    <Image source={require('./bazaar.jpg')}>
       {props.children}
     </Image>
   )
