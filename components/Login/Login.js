@@ -72,7 +72,8 @@ export default function Login({ navigation }) {
         }
         <Button
           onPress={() => SetLoginMode(!loginMode)}
-          title={loginMode ? "Sign Up" : "Login"} />
+          title={loginMode ? "Sign Up" : "Login"} 
+          color = "#db6b5c" />
       </Row>
       <Text color="red">{errorMessage}</Text>
       <SafeAreaView>
@@ -101,8 +102,9 @@ export default function Login({ navigation }) {
       https://docs.expo.dev/versions/latest/sdk/google-sign-in/*/}
       <Button
         onPress={() => authenticate()}
-        title={loginMode ? "Login" : "Signup"} />
-    </View>
+        title={loginMode ? "Login" : "Signup"} 
+        color = "#db6b5c" />
+      </View>
   );
 }
 

@@ -38,7 +38,6 @@ export default function BarterListing({ navigation }) {
 
   return (
     <SafeAreaView>
-      <Text style={styles.Logo}>B</Text>
       {Array.isArray(data) &&
         <FlatList
           data={data.sort(SortingFunction)}
