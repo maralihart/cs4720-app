@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "cs4720-app-starter",
-    "slug": "cs4720-app-starter",
+    "name": "Bazaar",
+    "slug": "bazaar",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "description": "This is an application designed to help college students in the UVA area to see free/bartered items as well as events involving free items/food in the Charlottesville area."
   },
   "name": "cs4720-app-starter"
 }

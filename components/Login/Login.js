@@ -28,16 +28,12 @@ export default function Login({ navigation }) {
             displayName: name
           })
           var user = userCredential.user;
-          console.log(JSON.stringify(user))
           firebase.auth().currentUser.sendEmailVerification().then(() => {});
           setErrorMessage("Please check your email to verify your account");
-          console.log("Logging in as", email, password)
         })
           .catch((error) => {
             setErrorMessage(error.message);
-            console.log(errorMessage);
           });
-        console.log("Signing up with", name, email, password)
 
       }
       else{
@@ -49,7 +45,7 @@ export default function Login({ navigation }) {
             var user = firebase.auth().currentUser;
             if(user.emailVerified){
               onChangePassword('');
-              navigation.navigate('Navbar');
+              navigation.navigate('Feed');
             }
             else{
               setErrorMessage("Please check your email to verify your account");
@@ -57,9 +53,7 @@ export default function Login({ navigation }) {
           })
           .catch((error) => {
             setErrorMessage(error.message);
-            console.log(errorMessage);
           });
-        console.log("Logging in as", email, password)
       }
   }
 
@@ -67,7 +61,6 @@ export default function Login({ navigation }) {
     // TODO: Proper error handling with invalid email
     setErrorMessage(null)
     if (!email) setErrorMessage("Invalid email.")
-    console.log("Forgot password", email)
   }
   return (
     <View style={styles.container}>
@@ -79,7 +72,8 @@ export default function Login({ navigation }) {
         }
         <Button
           onPress={() => SetLoginMode(!loginMode)}
-          title={loginMode ? "Sign Up" : "Login"} />
+          title={loginMode ? "Sign Up" : "Login"} 
+          color = "#db6b5c" />
       </Row>
       <Text color="red">{errorMessage}</Text>
       <SafeAreaView>
@@ -108,12 +102,9 @@ export default function Login({ navigation }) {
       https://docs.expo.dev/versions/latest/sdk/google-sign-in/*/}
       <Button
         onPress={() => authenticate()}
-        title={loginMode ? "Login" : "Signup"} />
-      <Button
-        onPress={() => forgotPassword()}
-        title="Forgot Password?" />
-      <StatusBar style="auto" />
-    </View>
+        title={loginMode ? "Login" : "Signup"} 
+        color = "#db6b5c" />
+      </View>
   );
 }
 

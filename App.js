@@ -19,6 +19,9 @@ import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
 import Listing from './components/Listing/Listing';
 import ListingPreview from './components/ListingPreview/ListingPreview';
+import SplashScreen from './components/SplashScreen/SplashScreen';
+import LogoHeader from './components/LogoHeader/LogoHeader';
+
 
 export default function App() {
   const [authenticated, setAuthenticated] = useState(true);
@@ -54,16 +57,19 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={!initializing ? "Navbar" : "Login"}>
-        <Stack.Screen name="Navbar" component={Navbar} />
-        <Stack.Screen name="Feed" component={Feed} />
-        <Stack.Screen name="Calendar" component={Calendar} />
-        <Stack.Screen name="ComposeListing" component={ComposeListing} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Listing" component={Listing} />
-        <Stack.Screen name="ListingPreview" component={ListingPreview} />
+      <Stack.Navigator initialRouteName={!initializing ? "Login" : "Login"}>
+        <Stack.Screen name="Navbar" component={Navbar} options= {{headerShown: false}}/>
+        {/* <Stack.Screen name="Feed" component={Feed} options= {{headerTitle: (props) => <LogoHeader {...props} /> }} /> */}
+        <Stack.Screen name="Feed" component={Feed} options= {{headerShown: false}}/>
+        <Stack.Screen name="Calendar" component={Calendar} options= {{headerShown: false}}/>
+        <Stack.Screen name="ComposeListing" component={ComposeListing} options= {{headerShown: false}}/>
+        <Stack.Screen name="Profile" component={Profile} options= {{headerShown: false}}/>
+        <Stack.Screen name="Login" component={Login} options= {{headerShown: false}}/>
+        <Stack.Screen name="Listing" component={Listing} options= {{headerShown: false}}/>
+        <Stack.Screen name="ListingPreview" component={ListingPreview} options= {{headerShown: false}}/>
+        <Stack.Screen name="SplashScreen" component={SplashScreen} options= {{headerShown: false}}/>
       </Stack.Navigator>
+      {/* <LogoHeader/> */}
     </NavigationContainer>
   );
 }

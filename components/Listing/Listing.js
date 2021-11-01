@@ -10,16 +10,14 @@ export default function BarterListing({ navigation }) {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
         setData(snapshot.val());
-        console.log(data + "listener");
       }
-      console.log(snapshot.val());
+
     })
   }
   useEffect(() => {
     setupListListener()
   }, [])
   function renderBarterItem({ item }) {
-    console.log(item.key + "renderBarterItem");
     let itemKey = item.key;
     return (
       <View style={styles.view}>
@@ -40,7 +38,6 @@ export default function BarterListing({ navigation }) {
 
   return (
     <SafeAreaView>
-      <Text style={styles.Logo}>B</Text>
       {Array.isArray(data) &&
         <FlatList
           data={data.sort(SortingFunction)}

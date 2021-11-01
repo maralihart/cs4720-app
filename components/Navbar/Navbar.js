@@ -1,45 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import styled from 'styled-components/native';
+import { Banner, Row, Header} from '../Essentials/Essentials';
 
+function NavbarContainer(props) {
+  const Container = styled.View`
+    flex: ${props.flex ? props.flex : 0.05};
+    flexDirection: ${props.direction ? props.direction : 'row'};
+    backgroundColor: ${props.bgcolor ? props.bgcolor : '#db6b5c'};
+    alignItems: ${props.align ? props.align : 'flex-end'};
+    justifyContent: ${props.justify ? props.justify : 'space-around'};
+    `;
+    
+    return (
+      <Container>
+      { props.children }
+    </Container>
+  )
+}
 export default function Navbar({ navigation }) {
   return (
-    <View style={styles.container}>
-      <Text>Navbar</Text>
-      <Button
-        title="Calendar"
-        onPress={() => navigation.navigate('Calendar')}
-      />
-      <Button
+    <NavbarContainer>
+    <Button
         title="New Listing"
         onPress={() => navigation.navigate('ComposeListing')}
-      />
-      <Button
-        title="Profile"
-        onPress={() => navigation.navigate('Profile')}
-      />
-      <Button
-        title="Feed"
-        onPress={() => navigation.navigate('Feed')}
+        color = "#db6b5c"
       />
       <Button
         title="Listings"
         onPress={() => navigation.navigate('Listing')}
-      />
-      <Button
-        title="Delete later -- login"
-        onPress={() => navigation.navigate('Login')}
-      />
+        color = "#db6b5c"
+        />
       <StatusBar style="auto" />
-    </View>
+    </NavbarContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
