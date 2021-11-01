@@ -45,7 +45,7 @@ export default function Login({ navigation }) {
             var user = firebase.auth().currentUser;
             if(user.emailVerified){
               onChangePassword('');
-              navigation.navigate('Navbar');
+              navigation.navigate('Feed');
             }
             else{
               setErrorMessage("Please check your email to verify your account");

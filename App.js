@@ -59,8 +59,8 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName={!initializing ? "Login" : "Login"}>
         <Stack.Screen name="Navbar" component={Navbar} options= {{headerShown: false}}/>
-        <Stack.Screen name="Feed" component={Feed} options= {{headerTitle: (props) => <LogoHeader {...props} /> }} />
-        {/* <Stack.Screen name="Feed" component={Feed} options= {{headerShown: false}}/> */}
+        {/* <Stack.Screen name="Feed" component={Feed} options= {{headerTitle: (props) => <LogoHeader {...props} /> }} /> */}
+        <Stack.Screen name="Feed" component={Feed} options= {{headerShown: false}}/>
         <Stack.Screen name="Calendar" component={Calendar} options= {{headerShown: false}}/>
         <Stack.Screen name="ComposeListing" component={ComposeListing} options= {{headerShown: false}}/>
         <Stack.Screen name="Profile" component={Profile} options= {{headerShown: false}}/>
