@@ -79,6 +79,7 @@ export default function ComposeListing( { navigation } ) {
           <Button
             onPress={() => submit()}
             title = "submit"
+            color = "#db6b5c"
             />
       </SafeAreaView>
     </ScrollView>
