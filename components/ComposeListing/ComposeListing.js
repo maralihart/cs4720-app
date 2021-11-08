@@ -33,7 +33,8 @@ export default function ComposeListing( { navigation } ) {
     setupPostsListener()
   }, [])
 
-  const submit = () =>{
+  const submit = () => {
+    console.log("Submit button pressed")
     const validHeaders = ["Event", "Free Item", "Barter Item"]
 
     if(!title || !header || !content || (header == "Event" && date == NULL)){
@@ -48,6 +49,7 @@ export default function ComposeListing( { navigation } ) {
       setErrorMessage("Please enter the date in the format of MM/DD/YYYY")
     }
     else{
+      console.log("About to add to database")
       const num = posts + 1;
       firebase.database().ref('/posts').set(num);
       firebase.database().ref('/listings/' + num).set({
@@ -62,7 +64,7 @@ export default function ComposeListing( { navigation } ) {
       onChangeTitle('');
       onChangeHeader('');
       onChangeContent('');
-      navigation.navigate('Navbar');
+      navigation.navigate('Feed');
     }
   }
   return (
