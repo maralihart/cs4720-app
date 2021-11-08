@@ -32,6 +32,11 @@ export default function Navbar({ navigation }) {
         onPress={() => navigation.navigate('Listing')}
         color = "#db6b5c"
         />
+      <Button
+        title="Calendar"
+        onPress={() => navigation.navigate('Calendar')}
+        color = "#db6b5c"
+        />
       <StatusBar style="auto" />
     </NavbarContainer>
   );
