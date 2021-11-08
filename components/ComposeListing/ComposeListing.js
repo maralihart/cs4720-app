@@ -61,19 +61,19 @@ export default function ComposeListing( { navigation } ) {
             style={styles.input}
             onChangeText={onChangeTitle}
             value={title}
-            placeholder="Enter title here "
+            placeholder="Enter event/item name here"
           />
           <TextInput
             style={styles.input}
             onChangeText={onChangeHeader}
             value={header}
-            placeholder="Enter header Here"
+            placeholder="Enter event/item type here (event/free item/barter item)"
           />
           <TextInput
             style={styles.input}
             onChangeText={onChangeContent}
             value={content}
-            placeholder="Enter content Here"
+            placeholder="Enter event/item information here"
             multiline
           />
           <Button
@@ -88,6 +88,7 @@ export default function ComposeListing( { navigation } ) {
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 50,
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
