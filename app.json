@@ -6,7 +6,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "description": "This is an application designed to help college students in the UVA area to see free/bartered items as well as events involving free items/food in the Charlottesville area."
+    "description": "This is an application designed to help college students in the UVA area to see free/bartered items as well as events involving free items/food in the Charlottesville area.",
+    "android": {
+      "package": "com.apg2fds.bazaar"
+    }
   },
   "name": "cs4720-app-starter"
 }
