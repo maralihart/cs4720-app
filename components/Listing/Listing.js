@@ -9,7 +9,7 @@ export default function Listing({ navigation }) {
   function setupListListener() {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
-        setData(snapshot.val());
+        setData(snapshot.val().filter((item) => item !== null && item));
       }
 
     })
