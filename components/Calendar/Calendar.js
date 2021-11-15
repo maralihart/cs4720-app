@@ -1,9 +1,10 @@
 import * as firebase from 'firebase';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
+import { StyleSheet } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import { Text, DefaultContainer } from '../Essentials/Essentials';
+import Navbar from '../Navbar/Navbar';
 
 export default function CalendarPage({ navigation }) {
   const [data, setData] = useState(null)
@@ -25,14 +26,15 @@ export default function CalendarPage({ navigation }) {
     let toMark = {}
     info.map((item) => {
       const date = item.Date;
+      const title = item.Title;
       const key = item.Key;
       if ( date == "" ) {}
       else if (toMark[date]) {
-        toMark[date].events.push(key);
+        toMark[date].events.push([title, key]);
       } else {
         toMark[date] = {
           marked: true,
-          events: [key],
+          events: [[title, key]],
           dotColor: "#db6b5c"
         };
       }
@@ -41,7 +43,7 @@ export default function CalendarPage({ navigation }) {
   }
 
   return (
-      <View style={styles.container}>
+      <DefaultContainer>
         <Text>Calendar</Text>
         <Calendar
           theme={{
@@ -76,9 +78,10 @@ export default function CalendarPage({ navigation }) {
             const date = datesToMark[day.dateString]
             if (date) {
               let key;
-              if (date.events.length == 1)  key = date.events[0];
+              if (date.events.length == 1)  key = date.events[0][1];
               else {
-                // TODO: Add handling for multiple events on one day
+                // TODO: Make a popup that allows you to select the title and navigate to that key
+                const titles = date.events.map((item) => item[0])
               }
               navigation.navigate({ name: 'ListingPreview', params: { key: key }})
             }
@@ -93,8 +96,8 @@ export default function CalendarPage({ navigation }) {
           enableSwipeMonths={true}
           markedDates={datesToMark}
         />
-        <StatusBar style="auto" />
-      </View>
+        <Navbar navigation={navigation}/>
+      </DefaultContainer>
   );
 }
 
