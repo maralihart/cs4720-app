@@ -80,7 +80,7 @@ export default function CalendarPage({ navigation }) {
               let key;
               if (date.events.length == 1)  key = date.events[0][1];
               else {
-                // TODO: Make a popup that allows you to select the title and navigate to that key
+                // TODO: Make a popup that allows you to select the title and navigate to that key -- reuse Listing functionality
                 const titles = date.events.map((item) => item[0])
               }
               navigation.navigate({ name: 'ListingPreview', params: { key: key }})
