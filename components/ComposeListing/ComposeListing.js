@@ -4,16 +4,18 @@ import { TextInput } from 'react-native-gesture-handler';
 import * as firebase from 'firebase'; 
 import 'firebase/auth';
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Button } from 'react-native';
+import moment from 'moment';
 
 export default function ComposeListing( { navigation } ) {
   const [title, onChangeTitle] = useState('')
   const [header, onChangeHeader] = useState('')
   const [content, onChangeContent] = useState('')
+  const [date, onChangeDate] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [posts, setPosts] = useState()
 
   function setupPostsListener() {
-    firebase.database().ref('/Posts').on('value', (snapshot) => {
+    firebase.database().ref('/posts').on('value', (snapshot) => {
       setPosts(snapshot.val());
     });
   }
@@ -33,26 +35,43 @@ export default function ComposeListing( { navigation } ) {
   }, [])
 
   const submit = () =>{
-    if(!title || !header || !content){
+    console.log("Submit button pressed")
+    const validHeaders = ["Event", "Free Item", "Barter Item"]
+    console.log("before if statements")
+    if(!title || !header || !content || (header == "Event" && date == null)){
+      console.log("Error message1")
       setErrorMessage("Please fill out all fields");
     }
+    else if(!validHeaders.includes(header)) {
+      console.log(header)
+      console.log("Error message2")
+      setErrorMessage("Header must be one of the following values: ", validHeaders.join(", "))
+    }
+    else if(!moment(date, "YYYY-MM-DD", true).isValid()) {
+      console.log(date)
+      console.log("Error message3")
+      setErrorMessage("Please enter the date in the format of MM/DD/YYYY")
+    }
     else{
+      console.log("About to add to database")
       const num = posts + 1;
-      firebase.database().ref('/Posts').set(num);
+      firebase.database().ref('/posts').set(num);
       firebase.database().ref('/listings/' + num).set({
         Content: content,
         Header: header,
         Title: title,
-        key: num,
+        Key: num,
+        Date: header == "Event" ? date : "",
         Poster: name,
-        user: email,
+        User: email,
       })
       onChangeTitle('');
       onChangeHeader('');
       onChangeContent('');
-      navigation.navigate('Navbar');
+      navigation.navigate('Feed');
     }
   }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -69,6 +88,12 @@ export default function ComposeListing( { navigation } ) {
             value={header}
             placeholder="Enter event/item type here (event/free item/barter item)"
           />
+          {header == "Event" && <TextInput
+            style={styles.input}
+            onChangeText={onChangeDate}
+            value={date}
+            placeholder="Date of Event in the format YYYY-MM-DD"
+          />}
           <TextInput
             style={styles.input}
             onChangeText={onChangeContent}
@@ -77,7 +102,10 @@ export default function ComposeListing( { navigation } ) {
             multiline
           />
           <Button
-            onPress={() => submit()}
+            onPress={() => {
+              console.log("On Press");
+              submit();
+              console.log("After submit")}}
             title = "submit"
             color = "#db6b5c"
             />
