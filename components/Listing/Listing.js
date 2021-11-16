@@ -13,7 +13,6 @@ export default function Listing({ navigation, date }) {
         const validDate = noNullData.filter((item) => item.Date == date)
         setData(date ? validDate : noNullData);
       }
-
     })
   }
   useEffect(() => {
