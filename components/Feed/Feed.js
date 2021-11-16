@@ -74,7 +74,7 @@ function SearchContainer(props) {
 }
 
 export default function Feed({ navigation }) {
-  const [topic, onSearchTopic] = useState('Search')
+  const [topic, onSearchTopic] = useState('')
 
   return (
     <DefaultContainer>
@@ -88,7 +88,7 @@ export default function Feed({ navigation }) {
         <SearchContainer onChangeText={onSearchTopic}/>
         <ComponentItem>
             <ListingContainer>
-                <Listing navigation={navigation}/>
+                <Listing navigation={navigation} filter={topic}/>
             </ListingContainer>
         </ComponentItem>
       <Navbar navigation={navigation}/>

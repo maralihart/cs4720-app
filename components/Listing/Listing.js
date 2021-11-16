@@ -3,15 +3,26 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Listing({ navigation, date }) {
+export default function Listing({ navigation, date, filter }) {
   const [data, setData] = useState(null)
   const [key, setKey] = useState(null)
   function setupListListener() {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
         const noNullData = snapshot.val().filter((item) => item !== null && item);
-        const validDate = noNullData.filter((item) => item.Date == date)
-        setData(date ? validDate : noNullData);
+        const validDate = date && noNullData.filter((item) => item.Date == date)
+        const searchedData = filter && noNullData.filter((item) => {
+          console.log("Search data filter", filter)
+          let itemInfo = item.Content.split();
+          itemInfo.push(item.Title.split());
+          itemInfo.push(item.Header.split());
+
+          const searchContent = filter.split();
+          searchContent.map((item) => {
+            if (itemInfo.includes(item)) return true;
+          })
+        })
+        setData(date ? validDate : filter ? searchedData : noNullData);
       }
     })
   }
@@ -40,7 +51,7 @@ export default function Listing({ navigation, date }) {
 
   return (
     <SafeAreaView>
-      {Array.isArray(data) &&
+      {Array.isArray(data) ?
         <FlatList
           data={data.sort(SortingFunction)}
           renderItem={renderItem}
@@ -50,7 +61,8 @@ export default function Listing({ navigation, date }) {
           }
           }
           style={styles.container}
-        />}
+        />
+      : <Text>No data found</Text>}
     </SafeAreaView>
   );
 }
