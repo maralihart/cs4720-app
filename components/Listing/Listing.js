@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function BarterListing({ navigation }) {
+export default function Listing({ navigation }) {
   const [data, setData] = useState(null)
   const [key, setKey] = useState(null)
   function setupListListener() {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
-        setData(snapshot.val());
+        setData(snapshot.val().filter((item) => item !== null && item));
       }
 
     })
@@ -17,12 +17,13 @@ export default function BarterListing({ navigation }) {
   useEffect(() => {
     setupListListener()
   }, [])
-  function renderBarterItem({ item }) {
-    let itemKey = item.key;
+  function renderItem({ item }) {
+    let itemKey = item.Key;
     return (
       <View style={styles.view}>
         <TouchableOpacity onPress={() => { navigation.navigate({ name: 'ListingPreview', params: { key: itemKey, }, }) }}>
-          <Text style={styles.item}>{item.Title}</Text><Text style={styles.description}>{item.Content}</Text>
+          <Text style={styles.item}>[{item.Header}] {item.Title}</Text>
+          <Text style={styles.description}>{item.Header == "Event" && `${item.Date}\n`}{item.Content}</Text>
         </TouchableOpacity>
       </View >)
   }
@@ -41,10 +42,10 @@ export default function BarterListing({ navigation }) {
       {Array.isArray(data) &&
         <FlatList
           data={data.sort(SortingFunction)}
-          renderItem={renderBarterItem}
+          renderItem={renderItem}
           keyExtractor={item => {
-            setKey(item.key)
-            return item.key.toString();
+            setKey(item.Key)
+            return item.Key.toString();
           }
           }
           style={styles.container}
