@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import * as firebase from 'firebase'; 
 import 'firebase/auth';
 import { SafeAreaView, StyleSheet, Text, View, ScrollView, Button } from 'react-native';
+import moment from 'moment';
 
 export default function ComposeListing( { navigation } ) {
   const [title, onChangeTitle] = useState('')
@@ -33,19 +34,22 @@ export default function ComposeListing( { navigation } ) {
     setupPostsListener()
   }, [])
 
-  const submit = () => {
+  const submit = () =>{
     console.log("Submit button pressed")
     const validHeaders = ["Event", "Free Item", "Barter Item"]
-
-    if(!title || !header || !content || (header == "Event" && date == NULL)){
+    console.log("before if statements")
+    if(!title || !header || !content || (header == "Event" && date == null)){
+      console.log("Error message1")
       setErrorMessage("Please fill out all fields");
     }
     else if(!validHeaders.includes(header)) {
       console.log(header)
+      console.log("Error message2")
       setErrorMessage("Header must be one of the following values: ", validHeaders.join(", "))
     }
-    else if(moment(date, "YYYY-MM-DD", true).isValid()) {
+    else if(!moment(date, "YYYY-MM-DD", true).isValid()) {
       console.log(date)
+      console.log("Error message3")
       setErrorMessage("Please enter the date in the format of MM/DD/YYYY")
     }
     else{
@@ -67,6 +71,7 @@ export default function ComposeListing( { navigation } ) {
       navigation.navigate('Feed');
     }
   }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -97,7 +102,10 @@ export default function ComposeListing( { navigation } ) {
             multiline
           />
           <Button
-            onPress={() => submit()}
+            onPress={() => {
+              console.log("On Press");
+              submit();
+              console.log("After submit")}}
             title = "submit"
             color = "#db6b5c"
             />
