@@ -1,14 +1,19 @@
 import * as firebase from 'firebase';
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { Text, DefaultContainer } from '../Essentials/Essentials';
 import Navbar from '../Navbar/Navbar';
+import Listing from '../Listing/Listing';
+
+// TODO: Add agenda
 
 export default function CalendarPage({ navigation }) {
   const [data, setData] = useState(null)
   const [datesToMark, setDatesToMark] = useState(null)
+  const [selectedDate, setSelectedDate] = useState("");
+  const [multipleEvents, setMultipleEvents] = useState(false);
   function setupListListener() {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
@@ -40,6 +45,11 @@ export default function CalendarPage({ navigation }) {
       }
     })
     setDatesToMark(toMark);
+  }
+
+  function multipleEventsHandler(date) {
+    setMultipleEvents(true);
+    setSelectedDate(date);
   }
 
   return (
@@ -75,15 +85,15 @@ export default function CalendarPage({ navigation }) {
           displayLoadingIndicator
           // Handler which gets executed on day press. Default = undefined
           onDayPress={(day) => {
+            setMultipleEvents(false)
             const date = datesToMark[day.dateString]
             if (date) {
               let key;
-              if (date.events.length == 1)  key = date.events[0][1];
-              else {
-                // TODO: Make a popup that allows you to select the title and navigate to that key -- reuse Listing functionality
-                const titles = date.events.map((item) => item[0])
+              if (date.events.length == 1)  {
+                key = date.events[0][1];
+                navigation.navigate({ name: 'ListingPreview', params: { key: key }})
               }
-              navigation.navigate({ name: 'ListingPreview', params: { key: key }})
+              else multipleEventsHandler(day.dateString)
             }
           }}
           monthFormat={'MMM yyyy'}
@@ -96,6 +106,7 @@ export default function CalendarPage({ navigation }) {
           enableSwipeMonths={true}
           markedDates={datesToMark}
         />
+        { multipleEvents && <Listing date={selectedDate} navigation={navigation}/>}
         <Navbar navigation={navigation}/>
       </DefaultContainer>
   );

@@ -3,13 +3,15 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Listing({ navigation }) {
+export default function Listing({ navigation, date }) {
   const [data, setData] = useState(null)
   const [key, setKey] = useState(null)
   function setupListListener() {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
-        setData(snapshot.val().filter((item) => item !== null && item));
+        const noNullData = snapshot.val().filter((item) => item !== null && item);
+        const validDate = noNullData.filter((item) => item.Date == date)
+        setData(date ? validDate : noNullData);
       }
 
     })
