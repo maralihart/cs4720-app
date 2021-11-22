@@ -8,13 +8,13 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-gesture-handler';
 import { Row, Banner, Header, DefaultContainer, ComponentItem, ListingContainer, SmallLogo } from '../Essentials/Essentials';
 
-export default function Profile({ navigation , route}) {
+export default function Profile({ navigation, route }) {
   const { name } = route.params;
   const { email } = route.params;
   const [data, setData] = useState(null)
   const [bio, setBio] = useState(null)
   const [editMode, setEditMode] = useState(false);
-  const [newBio, setNewBio] = useState(null);
+  const [newBio, setNewBio] = useState('');
 
   const auth = firebase.auth();
   const [accName, setAccName] = useState(null);
@@ -36,11 +36,12 @@ export default function Profile({ navigation , route}) {
 
     })
   }
-  function setupBioListener(){
+  function setupBioListener() {
     firebase.database().ref('/Profiles/' + email.substr(0, email.indexOf('@'))).on('value', (snapshot) => {
       if (snapshot.val() != null) {
         setBio(snapshot.val().bio)
         setNewBio(snapshot.val().bio)
+        console.log('test')
       }
     })
   }
@@ -60,88 +61,90 @@ export default function Profile({ navigation , route}) {
       </View >)
   }
 
-  function SortingFunction(first, second){
-    if (first.key > second.key){
+  function SortingFunction(first, second) {
+    if (first.key > second.key) {
       return -1;
     }
-    else{
+    else {
       return 1;
     }
   }
-  
-  function submitNewBio(){
+
+  function submitNewBio() {
     firebase.database().ref('/Profiles/' + email.substr(0, email.indexOf('@'))).update({
       bio: newBio,
     })
   }
   return (
-<DefaultContainer>
-  
-    <View style={styles.container}>
-    <SafeAreaView>
-    <ScrollView>
-      <Text style = {styles.name}>{!!(name) && name}</Text>
-      {!editMode && <Text>Bio: </Text>}
-      {!editMode && <Text>{!!(bio) && bio}</Text>}
-      {editMode && <TextInput
-            style={styles.input}
-            onChangeText={setNewBio}
-            value={newBio}
-            placeholder="Enter new bio here"
-          />}
-          {editMode && <Button
+    <View style={styles.page}>
+
+      <View style={styles.container}>
+        <Text style={styles.name}>{!!(name) && name}</Text>
+        {!editMode && <View><Text>Bio: </Text><Text>{!!(bio) && bio}</Text></View>}
+        {editMode && <View><TextInput
+          style={styles.input}
+          onChangeText={(value) => {
+            console.log(value)
+            setNewBio(value)
+          }}
+          value={newBio}
+          placeholder="Enter new bio here"
+          multiline
+        /><Button
             onPress={() => {
               submitNewBio();
               setEditMode(!editMode)
-			}}
-            title = "Submit New Bio"
-            color = "#db6b5c"
-            />}
-      {(email == accEmail) && <TouchableOpacity
-            onPress={() => {
-              setEditMode(!editMode)
-			}}
-            
-            style = {styles.editButton}
-            ><Text>{ editMode ? "Cancel Edit" : "Edit Bio"}</Text></TouchableOpacity>}
-      
-      <StatusBar style="auto" />
-      </ScrollView>
-      {Array.isArray(data) &&
-        <FlatList
-          data={data.sort(SortingFunction)}
-          renderItem={renderItem}
-          keyExtractor={item => {
-            return item.Key.toString();
-          }
-          }
-          style={styles.container}
-        />}
-      </SafeAreaView>
-      
+            }}
+            title="Submit New Bio"
+            color="#db6b5c"
+          /></View>}
+        {(email == accEmail) && <TouchableOpacity
+          onPress={() => {
+            setEditMode(!editMode)
+          }}
+
+          style={styles.editButton}
+        ><Text>{editMode ? "Cancel Edit" : "Edit Bio"}</Text></TouchableOpacity>}
+
+        <StatusBar style="auto" />
+        {Array.isArray(data) &&
+          <FlatList
+            data={data.sort(SortingFunction)}
+            renderItem={renderItem}
+            keyExtractor={item => {
+              return item.Key.toString();
+            }
+            }
+            style={styles.container}
+          />}
+
+      </View>
+
+      <View style={styles.navbar}>
+        <Navbar navigation={navigation} />
+      </View>
+
     </View>
-    
-    <View style = {styles.navbar}>
-    <Navbar navigation={navigation}/>
-    </View>
-    
-</DefaultContainer>
-    
+
   );
 }
 
 const styles = StyleSheet.create({
-  editButton:{
+  editButton: {
     backgroundColor: '#87CEEB',
-    borderRightWidth: Dimensions.get('window').width *.8,
+    borderRightWidth: Dimensions.get('window').width * .8,
     borderRightColor: 'white'
   },
+  page: {
+    backgroundColor: 'white'
+  },
   input: {
-		//height: 40,
-		margin: 12,
-		borderWidth: 1,
-		padding: 10,
-	  },
+    //height: 40,
+    backgroundColor: "green",
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
   Logo: {
     color: "rgb(231, 111, 81)",
     fontSize: 24,
@@ -171,8 +174,8 @@ const styles = StyleSheet.create({
   view: {
     marginBottom: 10
   },
-  navbar:{
-    marginBottom: 70
+  navbar: {
+    marginBottom: 0
   },
   name: {
     marginTop: 10,
