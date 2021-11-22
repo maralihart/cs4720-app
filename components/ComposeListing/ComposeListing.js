@@ -47,7 +47,7 @@ export default function ComposeListing( { navigation } ) {
       console.log("Error message2")
       setErrorMessage("Header must be one of the following values: ", validHeaders.join(", "))
     }
-    else if(!moment(date, "YYYY-MM-DD", true).isValid()) {
+    else if(header == "Event" && !moment(date, "YYYY-MM-DD", true).isValid()) {
       console.log(date)
       console.log("Error message3")
       setErrorMessage("Please enter the date in the format of MM/DD/YYYY")
@@ -64,6 +64,9 @@ export default function ComposeListing( { navigation } ) {
         Date: header == "Event" ? date : "",
         Poster: name,
         User: email,
+        CommentsNum: 0,
+      })
+      firebase.database().ref('/listings/' + num + '/comments').set({
       })
       onChangeTitle('');
       onChangeHeader('');
@@ -101,11 +104,11 @@ export default function ComposeListing( { navigation } ) {
             placeholder="Enter event/item information here"
             multiline
           />
+          <Text> { errorMessage }</Text>
           <Button
             onPress={() => {
-              console.log("On Press");
               submit();
-              console.log("After submit")}}
+              }}
             title = "submit"
             color = "#db6b5c"
             />

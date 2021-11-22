@@ -1,8 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import styled from 'styled-components/native';
 import { Banner, Row, Header} from '../Essentials/Essentials';
+import 'firebase/auth';
+import * as firebase from 'firebase';
 
 function NavbarContainer(props) {
   const Container = styled.View`
@@ -20,8 +22,30 @@ function NavbarContainer(props) {
   )
 }
 export default function Navbar({ navigation }) {
+  const auth = firebase.auth();
+  const [user, setUser] = useState(null);
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      setUser(user);
+      setName(user.displayName);
+      setEmail(user.email);
+    } else {
+    }
+  });
   return (
     <NavbarContainer>
+      <Button
+        title="Profile"
+        onPress={() => navigation.navigate('Profile', {name: name, email: email})}
+        color = "#db6b5c"
+      />
+      <Button
+        title="New Listing"
+        onPress={() => navigation.navigate('ComposeListing')}
+        color = "#db6b5c"
+      />
     <Button
         title="New Listing"
         onPress={() => navigation.navigate('ComposeListing')}

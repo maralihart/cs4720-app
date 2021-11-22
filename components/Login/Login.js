@@ -27,6 +27,9 @@ export default function Login({ navigation }) {
           userCredential.user.updateProfile({
             displayName: name
           })
+          firebase.database().ref('/Profiles/' + email).set({
+            bio: "Default Bio",
+          })
           var user = userCredential.user;
           firebase.auth().currentUser.sendEmailVerification().then(() => {});
           setErrorMessage("Please check your email to verify your account");
