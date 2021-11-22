@@ -57,7 +57,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={!initializing ? "Calendar" : "Calendar"}>
+      <Stack.Navigator initialRouteName={!initializing ? "Feed" : "Feed"}>
         <Stack.Screen name="Navbar" component={Navbar} options= {{headerShown: false}}/>
         {/* <Stack.Screen name="Feed" component={Feed} options= {{headerTitle: (props) => <LogoHeader {...props} /> }} /> */}
         <Stack.Screen name="Feed" component={Feed} options= {{headerShown: false}}/>
