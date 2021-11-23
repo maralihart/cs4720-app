@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import { StatusBar } from 'expo-status-bar';
 import { releaseChannel } from 'expo-updates';
@@ -27,45 +25,6 @@ import { Navigation } from 'react-native-feather';
 
 export default function App() {
   const [authenticated, setAuthenticated] = useState(true);
-  const Tab = createBottomTabNavigator(/*{
-    Navbar: {
-      Screen: Navbar,
-      navigationOptions: { header: null }
-    },
-    Feed: {
-      Screen: Feed,
-      navigationOptions: {}
-    },
-    Calendar: {
-      Screen: Calendar,
-      navigationOptions: {}
-    },
-    ComposeListing: {
-      Screen: ComposeListing,
-      navigationOptions: {}
-    },
-    Profile: {
-      Screen: Profile,
-      navigationOptions: {}
-    },
-    Login: {
-      Screen: Login,
-      navigationOptions: { header: null }
-    },
-    ListingPreview: {
-      Screen: ListingPreview,
-      navigationOptions: { header: null }
-    },
-    SplashScreen: {
-      Screen: SplashScreen,
-      navigationOptions: { header: null }
-    },
-    Listing: {
-      Screen: Listing,
-      navigationOptions: { header: null }
-    }
-
-  }*/);
   const Stack = createNativeStackNavigator();
 
   const firebaseConfig = {
@@ -98,34 +57,17 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName={!initializing ? "Login" : "Login"}>
-        <Tab.Screen name="Navbar" component={Navbar} />
-        <Tab.Screen name="Feed" component={Feed} options={{ headerShown: false }} />
-        <Tab.Screen name="Calendar" component={Calendar} options={{ headerShown: false }} />
-        <Tab.Screen name="ComposeListing" component={ComposeListing} options={{ headerShown: false }} />
-        <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-        <Tab.Screen name="Login" component={Login} options={{ tabBarVisible: false, }} />
-        <Tab.Screen name="ListingPreview" component={ListingPreview} options={{ headerShown: false }} />
-        <Tab.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Listing" component={Listing} options={{ headerShown: false }} />
-      </Tab.Navigator>
-    </NavigationContainer >
+      <Stack.Navigator initialRouteName={!initializing ? "Feed" : "Feed"}>
+        <Stack.Screen name="Navbar" component={Navbar} options={{ headerShown: false }} />
+        <Stack.Screen name="Feed" component={Feed} options={{ headerShown: false }} />
+        <Stack.Screen name="Calendar" component={Calendar} options={{ headerShown: false }} />
+        <Stack.Screen name="ComposeListing" component={ComposeListing} options={{ headerShown: false }} />
+        <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Listing" component={Listing} options={{ headerShown: false }} />
+        <Stack.Screen name="ListingPreview" component={ListingPreview} options={{ headerShown: false }} />
+        <Stack.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
+      </Stack.Navigator >
+    </NavigationContainer>
   );
-  /**
- * <NavigationContainer>
-    <Stack.Navigator initialRouteName={!initializing ? "Feed" : "Feed"}>
-      <Stack.Screen name="Navbar" component={Navbar} options= {{headerShown: false}}/>
-      <Stack.Screen name="Feed" component={Feed} options= {{headerShown: false}}/>
-      <Stack.Screen name="Calendar" component={Calendar} options= {{headerShown: false}}/>
-      <Stack.Screen name="ComposeListing" component={ComposeListing} options= {{headerShown: false}}/>
-      <Stack.Screen name="Profile" component={Profile} options= {{headerShown: false}}/>
-      <Stack.Screen name="Login" component={Login} options= {{headerShown: false}}/>
-      <Stack.Screen name="Listing" component={Listing} options= {{headerShown: false}}/>
-      <Stack.Screen name="ListingPreview" component={ListingPreview} options= {{headerShown: false}}/>
-      <Stack.Screen name="SplashScreen" component={SplashScreen} options= {{headerShown: false}}/>
-    </Stack.Navigator >
-  </NavigationContainer >
-   * /
 }
-
-

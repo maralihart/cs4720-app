@@ -14,6 +14,8 @@ export default function Listing({ route, navigation }) {
 	const [comments, setComments] = useState(null)
 	const [commentsNum, setCommentsNum] = useState(null)
 	const [newComment, setNewComment] = useState(null)
+	const [listingAuthor, setListingAuthor] = useState(null)
+	const [listingAuthorEmail, setListingAuthorEmail] = useState(null)
 
 	function setupListingListener(listingID) {
 		firebase.database().ref('listings/' + listingID).on('value', (snapshot) => {
@@ -22,38 +24,40 @@ export default function Listing({ route, navigation }) {
 			setHeader(snapshot.val().Header)
 			setComments(snapshot.val().comments)
 			setCommentsNum(snapshot.val().CommentsNum)
+			setListingAuthor(snapshot.val().Poster)
+			setListingAuthorEmail(snapshot.val().User)
 		})
 	}
 	const auth = firebase.auth();
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      setName(user.displayName);
-      setEmail(user.email);
-    } else {
-    }
-  });
+	const [name, setName] = useState(null);
+	const [email, setEmail] = useState(null);
+	auth.onAuthStateChanged(user => {
+		if (user) {
+			setName(user.displayName);
+			setEmail(user.email);
+		} else {
+		}
+	});
 	function renderItem({ item }) {
 		let commentNum = item.Key;
 		return (
-		  <View style={styles.view}>
-			<TouchableOpacity onPress={() => {navigation.navigate({ name: 'Profile', params: {name: name, email: email}})}}>
-			  <Text style={styles.description}>{item.poster}: {item.comment}</Text>
-			</TouchableOpacity>
-		  </View >)
-	  }
-	  function SortingFunction(first, second){
-		if (first.key > second.key){
-		  return -1;
+			<View style={styles.view}>
+				<TouchableOpacity onPress={() => { navigation.navigate({ name: 'Profile', params: { name: name, email: email } }) }}>
+					<Text style={styles.description}>{item.poster}: {item.comment}</Text>
+				</TouchableOpacity>
+			</View >)
+	}
+	function SortingFunction(first, second) {
+		if (first.key > second.key) {
+			return -1;
 		}
-		else{
-		  return 1;
+		else {
+			return 1;
 		}
-	  }
-	  function submit(){
-		  if(!!newComment && newComment != null){
-			firebase.database().ref('/listings/'  + route.params.key).update({
+	}
+	function submit() {
+		if (!!newComment && newComment != null) {
+			firebase.database().ref('/listings/' + route.params.key).update({
 				CommentsNum: commentsNum + 1,
 			})
 			firebase.database().ref('/listings/' + route.params.key + '/comments/' + commentsNum).set({
@@ -61,39 +65,43 @@ export default function Listing({ route, navigation }) {
 				poster: name,
 				Key: commentsNum
 			})
-		  }
-	  }
+		}
+	}
 	return <ScrollView>
 		<Text style={styles.ListingTitle}>{!!(listingTitle) && listingTitle}</Text>
 		<Text style={styles.Header}>{!!(listingHeader) && listingHeader}</Text>
+		<TouchableOpacity style={styles.Header} onPress={() => { navigation.navigate({ name: 'Profile', params: { name: listingAuthor, email: listingAuthorEmail } }) }}>
+			<Text >Post by: {listingAuthor}</Text>
+		</TouchableOpacity>
+		<Text></Text>
 		<Text style={styles.Content}>
 			{!!(listingContent) && listingContent}
 		</Text>
 		<SafeAreaView>
 			{Array.isArray(comments) &&
-			<FlatList
-			data={comments.sort(SortingFunction)}
-			renderItem={renderItem}
-			keyExtractor={item => {
-				return item.Key.toString();
-			}
-			}
-			style={styles.container}
-        />}
-		<TextInput
-            style={styles.input}
-            onChangeText={setNewComment}
-            value={newComment}
-            placeholder="Enter Comment Here"
-          />
-		  <Button
-            onPress={() => {
-              submit();
-			}}
-            title = "Submit Comment"
-            color = "#db6b5c"
-            />
-    </SafeAreaView>
+				<FlatList
+					data={comments.sort(SortingFunction)}
+					renderItem={renderItem}
+					keyExtractor={item => {
+						return item.Key.toString();
+					}
+					}
+					style={styles.container}
+				/>}
+			<TextInput
+				style={styles.input}
+				onChangeText={setNewComment}
+				value={newComment}
+				placeholder="Enter Comment Here"
+			/>
+			<Button
+				onPress={() => {
+					submit();
+				}}
+				title="Submit Comment"
+				color="#db6b5c"
+			/>
+		</SafeAreaView>
 	</ScrollView>
 }
 
@@ -134,18 +142,18 @@ const styles = StyleSheet.create({
 		margin: 12,
 		borderWidth: 1,
 		padding: 10,
-	  },
-	  container: {
+	},
+	container: {
 		marginTop: 10,
 		marginBottom: 20,
-	  },
-	  description: {
+	},
+	description: {
 		padding: 0,
 		fontSize: 14,
 		height: 36,
 		marginLeft: 10,
-	  },
-	  view: {
+	},
+	view: {
 		marginBottom: 10
-	  }
+	}
 })

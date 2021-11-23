@@ -140,7 +140,6 @@ const styles = StyleSheet.create({
   },
   input: {
     //height: 40,
-    backgroundColor: "green",
     margin: 12,
     borderWidth: 1,
     padding: 10,
