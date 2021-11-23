@@ -104,15 +104,15 @@ export default function App() {
         <Tab.Screen name="Calendar" component={Calendar} options={{ headerShown: false }} />
         <Tab.Screen name="ComposeListing" component={ComposeListing} options={{ headerShown: false }} />
         <Tab.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
-        <Tab.Screen name="Login" component={Login} options={{ tabBarVisible: false, }} />
+        <Tab.Screen name="Login" component={Login} options={{ tabBarVisible: false }} />
         <Tab.Screen name="ListingPreview" component={ListingPreview} options={{ headerShown: false }} />
         <Tab.Screen name="SplashScreen" component={SplashScreen} options={{ headerShown: false }} />
         <Tab.Screen name="Listing" component={Listing} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer >
   );
-  /**
- * <NavigationContainer>
+  /*
+   <NavigationContainer>
     <Stack.Navigator initialRouteName={!initializing ? "Feed" : "Feed"}>
       <Stack.Screen name="Navbar" component={Navbar} options= {{headerShown: false}}/>
       <Stack.Screen name="Feed" component={Feed} options= {{headerShown: false}}/>
@@ -125,7 +125,7 @@ export default function App() {
       <Stack.Screen name="SplashScreen" component={SplashScreen} options= {{headerShown: false}}/>
     </Stack.Navigator >
   </NavigationContainer >
-   * /
+   */
 }
 
 
