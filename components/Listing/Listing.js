@@ -28,11 +28,11 @@ export default function Listing({ navigation }) {
       </View >)
   }
 
-  function SortingFunction(first, second){
-    if (first.key > second.key){
+  function SortingFunction(first, second) {
+    if (first.key > second.key) {
       return -1;
     }
-    else{
+    else {
       return 1;
     }
   }
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginRight: 118,
   },
   container: {
-    marginTop: 100,
+    marginTop: 50,
     marginBottom: 200,
   },
   item: {

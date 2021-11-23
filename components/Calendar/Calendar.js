@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { Text, DefaultContainer } from '../Essentials/Essentials';
+import { Text, DefaultContainer, ComponentItem } from '../Essentials/Essentials';
 import Navbar from '../Navbar/Navbar';
 
 export default function CalendarPage({ navigation }) {
@@ -13,7 +13,7 @@ export default function CalendarPage({ navigation }) {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
         setData(snapshot.val());
-        eventsByDate( snapshot.val() );
+        eventsByDate(snapshot.val());
       }
 
     })
@@ -22,13 +22,13 @@ export default function CalendarPage({ navigation }) {
     setupListListener()
   }, [])
 
-  const eventsByDate = ( info ) => {
+  const eventsByDate = (info) => {
     let toMark = {}
     info.map((item) => {
       const date = item.Date;
       const title = item.Title;
       const key = item.Key;
-      if ( date == "" ) {}
+      if (date == "") { }
       else if (toMark[date]) {
         toMark[date].events.push([title, key]);
       } else {
@@ -43,8 +43,12 @@ export default function CalendarPage({ navigation }) {
   }
 
   return (
-      <DefaultContainer>
-        <Text>Calendar</Text>
+    <DefaultContainer>
+
+      <Text></Text>
+      <Text></Text>
+      <Text style={styles.title}>Calendar</Text>
+      <ComponentItem>
         <Calendar
           theme={{
             // backgroundColor: '#ffffff',
@@ -78,12 +82,12 @@ export default function CalendarPage({ navigation }) {
             const date = datesToMark[day.dateString]
             if (date) {
               let key;
-              if (date.events.length == 1)  key = date.events[0][1];
+              if (date.events.length == 1) key = date.events[0][1];
               else {
                 // TODO: Make a popup that allows you to select the title and navigate to that key -- reuse Listing functionality
                 const titles = date.events.map((item) => item[0])
               }
-              navigation.navigate({ name: 'ListingPreview', params: { key: key }})
+              navigation.navigate({ name: 'ListingPreview', params: { key: key } })
             }
           }}
           monthFormat={'MMM yyyy'}
@@ -96,12 +100,16 @@ export default function CalendarPage({ navigation }) {
           enableSwipeMonths={true}
           markedDates={datesToMark}
         />
-        <Navbar navigation={navigation}/>
-      </DefaultContainer>
+      </ComponentItem>
+      <Navbar navigation={navigation} />
+    </DefaultContainer >
   );
 }
 
 const styles = StyleSheet.create({
+  title: {
+    textAlign: 'center',
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

@@ -7,6 +7,7 @@ import { SafeAreaView, Dimensions, Button, FlatList, Image, StyleSheet, Text, Vi
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { TextInput } from 'react-native-gesture-handler';
 import { Row, Banner, Header, DefaultContainer, ComponentItem, ListingContainer, SmallLogo } from '../Essentials/Essentials';
+import { Wind } from 'react-native-feather';
 
 export default function Profile({ navigation, route }) {
   const { name } = route.params;
@@ -77,7 +78,7 @@ export default function Profile({ navigation, route }) {
   }
   return (
     <View style={styles.page}>
-
+      <StatusBar style="auto" />
       <View style={styles.container}>
         <Text style={styles.name}>{!!(name) && name}</Text>
         {!editMode && <View><Text>Bio: </Text><Text>{!!(bio) && bio}</Text></View>}
@@ -105,38 +106,40 @@ export default function Profile({ navigation, route }) {
 
           style={styles.editButton}
         ><Text>{editMode ? "Cancel Edit" : "Edit Bio"}</Text></TouchableOpacity>}
-
-        <StatusBar style="auto" />
-        {Array.isArray(data) &&
-          <FlatList
-            data={data.sort(SortingFunction)}
-            renderItem={renderItem}
-            keyExtractor={item => {
-              return item.Key.toString();
-            }
-            }
-            style={styles.container}
-          />}
-
+        <ListingContainer>
+          {Array.isArray(data) &&
+            <FlatList
+              data={data.sort(SortingFunction)}
+              renderItem={renderItem}
+              keyExtractor={item => {
+                return item.Key.toString();
+              }
+              }
+              style={styles.container}
+            />}
+        </ListingContainer>
       </View>
-
-      <View style={styles.navbar}>
-        <Navbar navigation={navigation} />
-      </View>
-
+      <Navbar navigation={navigation} />
     </View>
 
   );
 }
 
 const styles = StyleSheet.create({
+  green: {
+    backgroundColor: 'green',
+  },
+  list: {
+    flex: .9,
+    width: Dimensions.get('window').width,
+  },
   editButton: {
     backgroundColor: '#87CEEB',
     borderRightWidth: Dimensions.get('window').width * .8,
     borderRightColor: 'white'
   },
   page: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   input: {
     //height: 40,
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
   },
   container: {
     marginTop: 100,
-    marginBottom: 20,
+    marginBottom: Dimensions.get('window').height - 190,
   },
   item: {
     marginLeft: 10,
@@ -174,7 +177,6 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   navbar: {
-    marginBottom: 0
   },
   name: {
     marginTop: 10,

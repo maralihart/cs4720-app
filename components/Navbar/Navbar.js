@@ -8,7 +8,7 @@ import * as firebase from 'firebase';
 
 function NavbarContainer(props) {
   const Container = styled.View`
-    flex: ${props.flex ? props.flex : 0.05};
+    flex: ${props.flex ? props.flex : .06};
     flexDirection: ${props.direction ? props.direction : 'row'};
     backgroundColor: ${props.bgcolor ? props.bgcolor : '#db6b5c'};
     alignItems: ${props.align ? props.align : 'flex-end'};
@@ -47,13 +47,8 @@ export default function Navbar({ navigation }) {
         color="#db6b5c"
       />
       <Button
-        title="New Listing"
-        onPress={() => navigation.navigate('ComposeListing')}
-        color="#db6b5c"
-      />
-      <Button
-        title="Listings"
-        onPress={() => navigation.navigate('Listing')}
+        title="Feed"
+        onPress={() => navigation.navigate('Feed')}
         color="#db6b5c"
       />
       <Button

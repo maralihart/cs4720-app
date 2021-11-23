@@ -1,12 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
-import * as firebase from 'firebase'; 
+import * as firebase from 'firebase';
 import 'firebase/auth';
-import { SafeAreaView, StyleSheet, Text, View, ScrollView, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, ScrollView, Button, Dimensions } from 'react-native';
 import moment from 'moment';
+import Navbar from '../Navbar/Navbar';
+import { ComponentItem } from '../Essentials/Essentials';
 
-export default function ComposeListing( { navigation } ) {
+export default function ComposeListing({ navigation }) {
   const [title, onChangeTitle] = useState('')
   const [header, onChangeHeader] = useState('')
   const [content, onChangeContent] = useState('')
@@ -34,25 +36,25 @@ export default function ComposeListing( { navigation } ) {
     setupPostsListener()
   }, [])
 
-  const submit = () =>{
+  const submit = () => {
     console.log("Submit button pressed")
     const validHeaders = ["Event", "Free Item", "Barter Item"]
     console.log("before if statements")
-    if(!title || !header || !content || (header == "Event" && date == null)){
+    if (!title || !header || !content || (header == "Event" && date == null)) {
       console.log("Error message1")
       setErrorMessage("Please fill out all fields");
     }
-    else if(!validHeaders.includes(header)) {
+    else if (!validHeaders.includes(header)) {
       console.log(header)
       console.log("Error message2")
       setErrorMessage("Header must be one of the following values: ", validHeaders.join(", "))
     }
-    else if(header == "Event" && !moment(date, "YYYY-MM-DD", true).isValid()) {
+    else if (header == "Event" && !moment(date, "YYYY-MM-DD", true).isValid()) {
       console.log(date)
       console.log("Error message3")
       setErrorMessage("Please enter the date in the format of MM/DD/YYYY")
     }
-    else{
+    else {
       console.log("About to add to database")
       const num = posts + 1;
       firebase.database().ref('/posts').set(num);
@@ -77,7 +79,7 @@ export default function ComposeListing( { navigation } ) {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.scroll}>
         <SafeAreaView>
           <TextInput
             style={styles.input}
@@ -104,21 +106,26 @@ export default function ComposeListing( { navigation } ) {
             placeholder="Enter event/item information here"
             multiline
           />
-          <Text> { errorMessage }</Text>
+          <Text> {errorMessage}</Text>
           <Button
             onPress={() => {
               submit();
-              }}
-            title = "submit"
-            color = "#db6b5c"
-            />
-      </SafeAreaView>
-    </ScrollView>
-  </View>
+            }}
+            title="submit"
+            color="#db6b5c"
+          />
+        </SafeAreaView>
+      </ScrollView>
+      <Navbar navigation={navigation} style={styles.Navbar} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+    marginBottom: 5
+  },
   container: {
     paddingTop: 50,
     flex: 1,
@@ -132,5 +139,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
+  navbar: {
+  }
 });
 

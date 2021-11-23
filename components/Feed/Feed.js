@@ -1,21 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, StyleSheet, View } from 'react-native';
-import { X, Filter, ChevronLeft} from 'react-native-feather';
+import { X, Filter, ChevronLeft } from 'react-native-feather';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { Row, Text, Banner, Header, DefaultContainer, ComponentItem, ListingContainer, SmallLogo } from '../Essentials/Essentials';
 import Listing from '../Listing/Listing';
 import Navbar from '../Navbar/Navbar';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 import styled from 'styled-components';
 
 function FilterButton(props) {
   const color = props.color ? props.color : '#db6b5c';
   const height = props.height ? props.height + 'px' : '18px';
   return (
-      <TouchableHighlight onPress={() => filter()}>
-          <Filter height={height} style={{color: color}}></Filter>
-      </TouchableHighlight>
+    <TouchableHighlight onPress={() => filter()}>
+      <Filter height={height} style={{ color: color }}></Filter>
+    </TouchableHighlight>
   )
 
 }
@@ -33,20 +33,20 @@ function SearchBar(props) {
   marginRight: ${props.marginRight ? props.marginRight + 'px' : '0px'};
   borderWidth: ${props.borderWidth ? props.borderWidth + 'px' : '1px'};
   borderRadius: ${props.borderRadius ? props.borderRadius + 'px' : '5px'};
-  borderColor: ${props.borderColor ? props.borderColor: 'lightgray'};
+  borderColor: ${props.borderColor ? props.borderColor : 'lightgray'};
   padding: ${props.padding ? props.padding + 'px' : '10px'};
   width: ${props.inputWidth ? props.inputWidth + 'px' : '300px'};
-  flex: ${props.flex ? props.flex: '4'};
+  flex: ${props.flex ? props.flex : '4'};
   backgroundColor: ${props.backgroundColor ? props.backgroundColor : 'rgb(242, 242, 247)'};
   `;
 
   return (
-      <Container>
-          <Input onChangeText={props.onChangeText ? props.onChangeText : null}
-          placeholder={props.placeholder ? props.placeholder : "Search Feed"}>
-          </Input>
-          { props.children }
-      </Container>
+    <Container>
+      <Input onChangeText={props.onChangeText ? props.onChangeText : null}
+        placeholder={props.placeholder ? props.placeholder : "Search Feed"}>
+      </Input>
+      {props.children}
+    </Container>
   )
 }
 
@@ -63,13 +63,13 @@ function SearchContainer(props) {
   const onChangeText = props.onChangeText ? props.onChangeText : null;
 
   return (
-      <Container>
-          <SearchBar onChangeText={onChangeText}>
-          </SearchBar>
-          <FilterButton>
-          </FilterButton>
-              { props.children }
-      </Container>
+    <Container>
+      <SearchBar onChangeText={onChangeText}>
+      </SearchBar>
+      <FilterButton>
+      </FilterButton>
+      {props.children}
+    </Container>
   )
 }
 
@@ -78,26 +78,29 @@ export default function Feed({ navigation }) {
 
   return (
     <DefaultContainer>
-        <Banner flex={0.01} width={'auto'}> 
-            {/* <TouchableHighlight> */}
-            {/* <ChevronLeft style={{color: 'db6b5c'}}/> */}
-            {/* </TouchableHighlight> */}
-            {/* <SmallLogo flex={2}></SmallLogo> */}
-            {/* <ChevronLeft style={{opacity: 0}}/> */}
-        </Banner>
-        <SearchContainer onChangeText={onSearchTopic}/>
-        <ComponentItem>
-            <ListingContainer>
-                <Listing navigation={navigation}/>
-            </ListingContainer>
-        </ComponentItem>
-      <Navbar navigation={navigation}/>
+      <Banner flex={0.01} width={'auto'}>
+        {/* <TouchableHighlight> */}
+        {/* <ChevronLeft style={{color: 'db6b5c'}}/> */}
+        {/* </TouchableHighlight> */}
+        {/* <SmallLogo flex={2}></SmallLogo> */}
+        {/* <ChevronLeft style={{opacity: 0}}/> */}
+      </Banner>
+      <SearchContainer onChangeText={onSearchTopic} />
+      <ComponentItem>
+        <ListingContainer>
+          <Listing navigation={navigation} />
+        </ListingContainer>
+      </ComponentItem>
+      <Navbar navigation={navigation} style={styles.navbar} />
     </DefaultContainer>
   );
 };
 
 
 const styles = StyleSheet.create({
+  navbar: {
+    paddingBottom: 70,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

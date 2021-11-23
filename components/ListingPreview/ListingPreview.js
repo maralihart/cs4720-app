@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react"
 import { Animated, FlatList, SafeAreaView, ScrollView, Image, StyleSheet, Text, View, Button } from "react-native"
 import { TextInput } from 'react-native-gesture-handler';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ComponentItem } from '../Essentials/Essentials';
+import Navbar from '../Navbar/Navbar';
 
 export default function Listing({ route, navigation }) {
 	useEffect(() => {
@@ -67,45 +69,60 @@ export default function Listing({ route, navigation }) {
 			})
 		}
 	}
-	return <ScrollView>
-		<Text style={styles.ListingTitle}>{!!(listingTitle) && listingTitle}</Text>
-		<Text style={styles.Header}>{!!(listingHeader) && listingHeader}</Text>
-		<TouchableOpacity style={styles.Header} onPress={() => { navigation.navigate({ name: 'Profile', params: { name: listingAuthor, email: listingAuthorEmail } }) }}>
-			<Text >Post by: {listingAuthor}</Text>
-		</TouchableOpacity>
-		<Text></Text>
-		<Text style={styles.Content}>
-			{!!(listingContent) && listingContent}
-		</Text>
-		<SafeAreaView>
-			{Array.isArray(comments) &&
-				<FlatList
-					data={comments.sort(SortingFunction)}
-					renderItem={renderItem}
-					keyExtractor={item => {
-						return item.Key.toString();
-					}
-					}
-					style={styles.container}
-				/>}
-			<TextInput
-				style={styles.input}
-				onChangeText={setNewComment}
-				value={newComment}
-				placeholder="Enter Comment Here"
-			/>
-			<Button
-				onPress={() => {
-					submit();
-				}}
-				title="Submit Comment"
-				color="#db6b5c"
-			/>
-		</SafeAreaView>
-	</ScrollView>
+	return (
+		< View >
+			<ScrollView style={styles.scroll}>
+				<ComponentItem>
+					<Text style={styles.ListingTitle}>{!!(listingTitle) && listingTitle}</Text>
+					<Text style={styles.Header}>{!!(listingHeader) && listingHeader}</Text>
+					<TouchableOpacity style={styles.Header} onPress={() => { navigation.navigate({ name: 'Profile', params: { name: listingAuthor, email: listingAuthorEmail } }) }}>
+						<Text >Post by: {listingAuthor}</Text>
+					</TouchableOpacity>
+					<Text></Text>
+					<Text style={styles.Content}>
+						{!!(listingContent) && listingContent}
+					</Text>
+					<SafeAreaView>
+						{Array.isArray(comments) &&
+							<FlatList
+								data={comments.sort(SortingFunction)}
+								renderItem={renderItem}
+								keyExtractor={item => {
+									return item.Key.toString();
+								}
+								}
+								style={styles.container}
+							/>}
+						<TextInput
+							style={styles.input}
+							onChangeText={setNewComment}
+							value={newComment}
+							placeholder="Enter Comment Here"
+						/>
+						<Button
+							onPress={() => {
+								submit();
+							}}
+							title="Submit Comment"
+							color="#db6b5c"
+							style={styles.submit}
+						/>
+					</SafeAreaView>
+				</ComponentItem>
+			</ScrollView>
+			<Navbar navigation={navigation} style={styles.navbar} />
+		</View >
+	)
 }
 
 const styles = StyleSheet.create({
+	scroll: {
+		marginBottom: 270,
+	},
+	navbar: {
+		flex: 1,
+		height: 40,
+	},
 	ListingTitle: {
 		left: 15,
 		color: "black",
@@ -114,7 +131,7 @@ const styles = StyleSheet.create({
 		fontWeight: "normal",
 		textAlign: "left",
 		backgroundColor: "transparent",
-		marginTop: 257,
+		marginTop: 40,
 	},
 	Header: {
 		left: 15,
