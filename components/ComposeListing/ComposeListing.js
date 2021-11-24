@@ -26,8 +26,7 @@ export default function ComposeListing( { navigation } ) {
     if (user) {
       setName(user.displayName);
       setEmail(user.email);
-    } else {
-    }
+    } 
   });
 
   useEffect(() => {

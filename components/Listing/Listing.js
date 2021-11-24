@@ -3,15 +3,31 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function Listing({ navigation }) {
+export default function Listing({ navigation, date, filter }) {
   const [data, setData] = useState(null)
   const [key, setKey] = useState(null)
   function setupListListener() {
     firebase.database().ref('listings').on('value', (snapshot) => {
       if (snapshot.val() != null) {
-        setData(snapshot.val().filter((item) => item !== null && item));
+        const noNullData = snapshot.val().filter((item) => item !== null && item);
+        const validDate = date && noNullData.filter((item) => item.Date == date)
+        const searchedData = filter && noNullData.filter((item) => {
+          let itemInfo = item.Content.toLowerCase() + " " + item.Title.toLowerCase() + " " + item.Header.toLowerCase();
+          itemInfo = itemInfo.split(" ");
+          const searchContent = filter.toLowerCase().split();
+          let found = false;
+          console.log("info: ", itemInfo, "\nfilter: ", searchContent);
+          searchContent.map((item) => {
+            console.log("item: ", item, "\nitemInfo: ", itemInfo)
+            if (itemInfo.includes(item)) {
+              console.log("item is in item info: ", item)
+              found = true;
+            }
+          })
+          return found;
+        })
+        setData(date ? validDate : filter ? searchedData : noNullData);
       }
-
     })
   }
   useEffect(() => {
@@ -39,7 +55,7 @@ export default function Listing({ navigation }) {
 
   return (
     <SafeAreaView>
-      {Array.isArray(data) &&
+      {Array.isArray(data) ?
         <FlatList
           data={data.sort(SortingFunction)}
           renderItem={renderItem}
@@ -49,7 +65,8 @@ export default function Listing({ navigation }) {
           }
           }
           style={styles.container}
-        />}
+        />
+      : <Text>No data found</Text>}
     </SafeAreaView>
   );
 }
