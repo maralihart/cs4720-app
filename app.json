@@ -7,6 +7,9 @@
       "**/*"
     ],
     "description": "This is an application designed to help college students in the UVA area to see free/bartered items as well as events involving free items/food in the Charlottesville area.",
+    "splash": {
+      "image": "./assets/logo.png"
+    },
     "android": {
       "package": "com.apg2fds.bazaar"
     }

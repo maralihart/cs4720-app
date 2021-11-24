@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+
+import { Entypo } from '@expo/vector-icons';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -19,13 +23,14 @@ import Profile from './components/Profile/Profile';
 import ComposeListing from './components/ComposeListing/ComposeListing';
 import Listing from './components/Listing/Listing';
 import ListingPreview from './components/ListingPreview/ListingPreview';
-import SplashScreen from './components/SplashScreen/SplashScreen';
+// import SplashScreen from './components/SplashScreen/SplashScreen';
 import LogoHeader from './components/LogoHeader/LogoHeader';
 
 
 export default function App() {
-  const [authenticated, setAuthenticated] = useState(true);
   const Stack = createNativeStackNavigator();
+
+  const [appIsReady, setAppIsReady] = useState(false);
 
   const firebaseConfig = {
     apiKey: "AIzaSyA6bvrrwuVo15KB0rjyJefDokY4ac3fYKs",
@@ -67,7 +72,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} options= {{headerShown: false}}/>
         <Stack.Screen name="Listing" component={Listing} options= {{headerShown: false}}/>
         <Stack.Screen name="ListingPreview" component={ListingPreview} options= {{headerShown: false}}/>
-        <Stack.Screen name="SplashScreen" component={SplashScreen} options= {{headerShown: false}}/>
+        {/* <Stack.Screen name="SplashScreen" component={SplashScreen} options= {{headerShown: false}}/> */}
       </Stack.Navigator>
       {/* <LogoHeader/> */}
     </NavigationContainer>
