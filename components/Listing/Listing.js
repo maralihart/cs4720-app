@@ -12,15 +12,19 @@ export default function Listing({ navigation, date, filter }) {
         const noNullData = snapshot.val().filter((item) => item !== null && item);
         const validDate = date && noNullData.filter((item) => item.Date == date)
         const searchedData = filter && noNullData.filter((item) => {
-          console.log("Search data filter", filter)
-          let itemInfo = item.Content.split();
-          itemInfo.push(item.Title.split());
-          itemInfo.push(item.Header.split());
-
-          const searchContent = filter.split();
+          let itemInfo = item.Content.toLowerCase() + " " + item.Title.toLowerCase() + " " + item.Header.toLowerCase();
+          itemInfo = itemInfo.split(" ");
+          const searchContent = filter.toLowerCase().split();
+          let found = false;
+          console.log("info: ", itemInfo, "\nfilter: ", searchContent);
           searchContent.map((item) => {
-            if (itemInfo.includes(item)) return true;
+            console.log("item: ", item, "\nitemInfo: ", itemInfo)
+            if (itemInfo.includes(item)) {
+              console.log("item is in item info: ", item)
+              found = true;
+            }
           })
+          return found;
         })
         setData(date ? validDate : filter ? searchedData : noNullData);
       }
